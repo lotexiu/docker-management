@@ -11,8 +11,11 @@
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
     "@shadcn/ui": "^0.0.4",
+    "@tanstack/react-table": "^8.21.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "colorjs.io": "^0.5.2",
+    "dockerode": "^4.0.9",
     "lucide-react": "^0.548.0",
     "next": "16.0.1",
     "react": "19.2.0",
@@ -22,6 +25,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/dockerode": "^3.3.45",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

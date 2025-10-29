@@ -1,0 +1,20 @@
+.heading-component-wrapper {
+	h1 {
+		line-height: 6rem;
+	}
+	h2 {
+		line-height: 5rem;
+	}
+	h3 {
+		line-height: 4rem;
+	}
+	h4 {
+		line-height: 3rem;
+	}
+	h5 {
+		line-height: 2rem;
+	}
+	h6 {
+		line-height: 1rem;
+	}
+}
