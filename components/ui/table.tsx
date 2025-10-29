@@ -1,55 +1,116 @@
-"use client";
-import React from "react";
+"use client"
 
-type Column<T> = {
-  key: string;
-  title: React.ReactNode;
-  render?: (item: T) => React.ReactNode;
-  headerClassName?: string;
-  cellClassName?: string;
-};
+import * as React from "react"
 
-type TableProps<T> = {
-  columns: Column<T>[];
-  data: T[];
-  className?: string;
-};
+import { cn } from "@/lib/utils"
 
-export function Table<T>({ columns, data, className = "" }: TableProps<T>) {
+function Table({ className, ...props }: React.ComponentProps<"table">) {
   return (
-    <div className={`overflow-hidden rounded-md border-border ${className}`}>
-      <table className="w-full table-fixed border-collapse text-sm">
-        <thead className="bg-muted text-left text-muted-foreground">
-          <tr>
-            {columns.map((col) => (
-              <th key={col.key} className={`px-4 py-2 font-medium ${col.headerClassName ?? ""}`}>
-                {col.title}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className="bg-card text-card-foreground">
-          {data.length === 0 ? (
-            <tr>
-              <td colSpan={columns.length} className="px-4 py-6 text-center text-muted-foreground">
-                Nenhum item encontrado.
-              </td>
-            </tr>
-          ) : (
-            data.map((row, idx) => (
-              <tr key={idx} className="odd:bg-card even:bg-muted">
-                {columns.map((col) => (
-                  <td key={col.key} className={`px-4 py-3 align-top ${col.cellClassName ?? ""}`}>
-                    {col.render ? col.render(row) : (row as any)[col.key]}
-                  </td>
-                ))}
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+    <div
+      data-slot="table-container"
+      className="relative w-full overflow-x-auto"
+    >
+      <table
+        data-slot="table"
+        className={cn("w-full caption-bottom text-sm", className)}
+        {...props}
+      />
     </div>
-  );
+  )
 }
 
-export default Table;
+function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
+  return (
+    <thead
+      data-slot="table-header"
+      className={cn("[&_tr]:border-b", className)}
+      {...props}
+    />
+  )
+}
+
+function TableBody({ className, ...props }: React.ComponentProps<"tbody">) {
+  return (
+    <tbody
+      data-slot="table-body"
+      className={cn("[&_tr:last-child]:border-0", className)}
+      {...props}
+    />
+  )
+}
+
+function TableFooter({ className, ...props }: React.ComponentProps<"tfoot">) {
+  return (
+    <tfoot
+      data-slot="table-footer"
+      className={cn(
+        "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
+  return (
+    <tr
+      data-slot="table-row"
+      className={cn(
+        "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function TableHead({ className, ...props }: React.ComponentProps<"th">) {
+  return (
+    <th
+      data-slot="table-head"
+      className={cn(
+        "text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function TableCell({ className, ...props }: React.ComponentProps<"td">) {
+  return (
+    <td
+      data-slot="table-cell"
+      className={cn(
+        "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function TableCaption({
+  className,
+  ...props
+}: React.ComponentProps<"caption">) {
+  return (
+    <caption
+      data-slot="table-caption"
+      className={cn("text-muted-foreground mt-4 text-sm", className)}
+      {...props}
+    />
+  )
+}
+
+export {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
+}
