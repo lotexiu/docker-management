@@ -8,7 +8,12 @@ interface DockerContainerPageContentProps {
 }
 
 export function DockerContainerPageContent(props:DockerContainerPageContentProps) {
-	const { Table, TableHeader, TableRow, TableBody, TableCell, TableHead } = TableVariations['basic']
+	const { Table, TableHeader, TableRow, TableBody, TableCell, TableHead } = TableVariations({
+		rowSize:"compact",
+		variants:"default",
+		border:"weak",
+		radius:"default"
+	})
 
 
 	const fakeData = new Array(5).fill(null).map((_,index)=>`data-${index}`)

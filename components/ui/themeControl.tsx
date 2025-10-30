@@ -18,7 +18,7 @@ const theme: BaseTheme = {
   secondary: color1,
   accent: color1,
   destructive: color1,
-  muted: color1,
+  muted: 'rgb(200,180,150)',
   border: "rgb(246, 204, 24)",
   input: color1,
   ring: color1,
