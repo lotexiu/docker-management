@@ -1,11 +1,6 @@
 "use client";
 
-import { TableCell } from "@/components/ui/table-data/TableCell";
-import { TableHead } from "@/components/ui/table-data/TableHead";
-import { TableRow } from "@/components/ui/table-data/TableRow";
-import { TableBody } from "@/components/ui/table-data/TableBody";
-import { TableHeader } from "@/components/ui/table-data/TableHeader";
-import { Table } from "@/components/ui/table-data/Table";
+import { TableVariations } from "@/components/ui/table-data/table-data";
 import { ContainerInfo } from "dockerode";
 
 interface DockerContainerPageContentProps {
@@ -13,6 +8,9 @@ interface DockerContainerPageContentProps {
 }
 
 export function DockerContainerPageContent(props:DockerContainerPageContentProps) {
+	const { Table, TableHeader, TableRow, TableBody, TableCell, TableHead } = TableVariations['basic']
+
+
 	const fakeData = new Array(5).fill(null).map((_,index)=>`data-${index}`)
 	return (
 		<div>

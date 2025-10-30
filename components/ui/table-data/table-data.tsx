@@ -7,8 +7,9 @@ import { getTableHead } from "./TableHead";
 import { getTableBody } from "./TableBody";
 import { getTableCell } from "./TableCell";
 import { getTableCaption } from "./TableCaption";
+import { VariationsTable, VariationsTableComponents } from "./type";
 
-export const variations = {
+export const TableVariations = {
 	basic: {
 		Table: getTable("rounded-2xl border-2 p-0"),
 		TableHeader: getTableHeader(""),
@@ -20,3 +21,21 @@ export const variations = {
 		TableCaption: getTableCaption(""),
 	}
 }
+
+function createVariation<T extends VariationsTableComponents>(
+	object: VariationsTable<T>
+): VariationsTable<T> {
+	return object;
+}
+
+const b = createVariation({
+	components: {
+		table: getTable(""),
+	},
+	variants: {
+		basic: {
+			
+		}
+	}
+});
+ 
