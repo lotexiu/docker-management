@@ -9,11 +9,9 @@ export default async function DockerContainersPage() {
 	// Alternativa (mais eficiente): importar a lógica do handler server-side diretamente
 	// em vez de fazer um fetch HTTP interno.
 
-	// const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? `http://localhost:${process.env.PORT ?? 3000}`;
-	// const response = await fetch(new URL("/api/docker", baseUrl).toString());
-	// const containers: ContainerInfo[] = await response.json();
-
-	const containers: ContainerInfo[] = []
+	const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? `http://localhost:${process.env.PORT ?? 3000}`;
+	const response = await fetch(new URL("/api/docker", baseUrl).toString());
+	const containers: ContainerInfo[] = await response.json();
 
 	return (
 		<div>
