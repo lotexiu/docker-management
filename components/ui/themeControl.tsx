@@ -10,28 +10,28 @@ const color1 = "rgb(0,0,0)"
 
 const theme: BaseTheme = {
 
-  background: "black",
+  background: "#0d0221",
   foreground: "white",
-  card: color1,
-  popover: color1,
-  primary: "rgb(246, 204, 24)",
-  secondary: color1,
-  accent: color1,
-  destructive: color1,
+  card: "gray", // não foi escolhido uma cor
+  popover: "gray", // não foi escolhido uma cor
+  primary: "#540d6e",
+  secondary: "#ff6c11",
+  accent: "#791e94",
+  destructive: "#fd1d53",
   muted: 'rgb(200,180,150)',
-  border: "rgb(246, 204, 24)",
-  input: color1,
-  ring: color1,
-  chart1: color1,
-  chart2: color1,
-  chart3: color1,
-  chart4: color1,
-  chart5: color1,
-  Sidebar: color1,
-  SidebarPrimary: color1,
-  SidebarAccent: color1,
-  SidebarBorder: color1,
-  SidebarRing: color1,
+  border: "rgb(20, 255, 125)",
+  input: "gray", // não foi escolhido uma cor
+  ring: "gray", // não foi escolhido uma cor
+  chart1: "gray", // não foi escolhido uma cor
+  chart2: "gray", // não foi escolhido uma cor
+  chart3: "gray", // não foi escolhido uma cor
+  chart4: "gray", // não foi escolhido uma cor
+  chart5: "gray", // não foi escolhido uma cor
+  Sidebar: "gray", // não foi escolhido uma cor
+  SidebarPrimary: "gray", // não foi escolhido uma cor
+  SidebarAccent: "gray", // não foi escolhido uma cor
+  SidebarBorder: "gray", // não foi escolhido uma cor
+  SidebarRing: "gray", // não foi escolhido uma cor
   percentageForegroundMix: 0.7,
 };
 

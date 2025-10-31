@@ -38,7 +38,11 @@ export async function POST(req: NextRequest) {
     if (action === "start") {
       if (!id) throw new Error("id required");
       const container = docker.getContainer(id);
-      await container.start();
+      if ((await container.inspect()).State.Paused) {
+        await container.unpause();
+      } else {
+        await container.start();
+      }
       return new Response(JSON.stringify({ ok: true }), { status: 200 });
     }
 
@@ -69,6 +73,13 @@ export async function POST(req: NextRequest) {
       // opcionalmente iniciar
       await container.start();
       return new Response(JSON.stringify({ ok: true, id: container.id }), { status: 201 });
+    }
+
+    if (action === "pause") {
+      if (!id) throw new Error("id required");
+      const container = docker.getContainer(id);
+      await container.pause();
+      return new Response(JSON.stringify({ ok: true }), { status: 200 });
     }
 
     return new Response(JSON.stringify({ error: "unknown action" }), { status: 400 });

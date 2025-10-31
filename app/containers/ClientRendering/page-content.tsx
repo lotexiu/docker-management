@@ -11,19 +11,57 @@ interface DockerContainerPageContentProps {
 	containers?: ContainerInfo[];
 }
 
-export function DockerContainerPageContent(props:DockerContainerPageContentProps) {
+export function DockerContainerPageContent({containers, ...props}:DockerContainerPageContentProps) {
 	const { Table, TableHeader, TableRow, TableBody, TableCell, TableHead } = TableVariations({
-		rowSize:"compact",
+		rowSize:"default",
 		variants:"default",
 		border:"weak",
 		radius:"default"
 	})
 
+
 	const [sorting, setSorting] = React.useState<SortingState>([]);
-	
+	const [data, setData] = React.useState<ContainerInfo[]>([]);
+	React.useEffect(() => {
+		if (containers) {
+			setData(containers);
+		}
+	},containers)
+
+	const refresh = React.useCallback(async () => {
+		try {
+			const res = await fetch("/api/docker");
+			if (!res.ok) throw new Error("Falha ao buscar containers");
+			const json = await res.json();
+			setData(json);
+		} catch (err) {
+			console.error(err);
+		}
+	}, []);
+
+	const handleAction = React.useCallback(async (opts: { action: string; id?: string }) => {
+		const { action, id } = opts;
+		try {
+			const res = await fetch("/api/docker", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ action, id }),
+			});
+			const body = await res.json().catch(() => ({}));
+			if (!res.ok) {
+				throw new Error(body.error || "Erro na requisição");
+			}
+			// após ação bem-sucedida, atualiza a listagem
+			await refresh();
+		} catch (err: any) {
+			console.error(err);
+			alert(err?.message || String(err));
+		}
+	}, [refresh]);
+
 	const table = useReactTable({
-		data: props.containers || [],
-		columns: DockerTableColumns(),
+		data: data || [],
+		columns: DockerTableColumns(handleAction),
 		state: { sorting },
 		onSortingChange: setSorting,
 		getCoreRowModel: getCoreRowModel(),

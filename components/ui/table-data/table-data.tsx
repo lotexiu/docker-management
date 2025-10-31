@@ -160,3 +160,5 @@ function TableCaption({ variantSettings, className, ...props}: TableCaptionProps
     />
   )
 }
+
+export { Table, TableHeader, TableHead, TableBody, TableCell, TableRow, TableFooter, TableCaption };
