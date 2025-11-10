@@ -14,9 +14,9 @@
     "next": "16.0.1"
   },
   "devDependencies": {
-    "@lotexiu/react": "0.0.0",
-    "@lotexiu/typescript": "1.0.0",
-    "@lotexiu/typescript-config": "1.0.0",
+    "@lotexiu/react": "workspace:*",
+    "@lotexiu/typescript": "workspace:*",
+    "@lotexiu/typescript-config": "workspace:*",
     "babel-plugin-react-compiler": "1.0.0",
     "typescript": "^5.9.2",
     "@types/node": "^22.15.3",
