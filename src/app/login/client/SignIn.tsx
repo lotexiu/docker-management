@@ -11,6 +11,10 @@ import { ReactNode } from "react";
 
 export const SignIn = ReactWrapper(
   class SignIn extends ReactClientComponent {
+    form = null;
+    emailOrUsername: string = "";
+    password: string = ""
+    
     render(): ReactNode {
       return (
         <div className={cn(
@@ -33,11 +37,10 @@ export const SignIn = ReactWrapper(
                   <Label htmlFor="email">Email</Label>
                   <Input
                     id="email"
-                    type="email"
-                    placeholder="admin@example.com"
+                    placeholder="user@gmail.com / username"
                     required
-                    // value={component.value}
-                    // onChange={(e)=>{ console.log(this.value); this.updateView()}}
+                    value={this.emailOrUsername}
+                    onChange={({target})=>{this.emailOrUsername = target.value; this.updateView();}}
                     disabled={false}
                   >
                     <Mail className="h-4 w-4 text-foreground" />
@@ -46,13 +49,14 @@ export const SignIn = ReactWrapper(
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="password">Senha</Label>
                   <div className="relative">
-                    
                     <Input
                       id="password"
                       type="password"
                       placeholder="••••••••"
-                      className="pl-10"
                       required
+                      value={this.password}
+                      onChange={({target})=>{ this.password = target.value; this.updateView();}}
+                      disabled={false}
                     >
                       <Lock className="h-4 w-4 text-foreground"/>
                     </Input>

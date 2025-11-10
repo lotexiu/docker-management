@@ -10,6 +10,7 @@ function Input({
   disabled,
   value,
   onChange,
+  "aria-invalid": invalid,
   ...props 
 }: React.ComponentProps<"input">) {
   return (
@@ -22,7 +23,9 @@ function Input({
         "focus-within:ring-2 focus-within:ring-ring/50 focus-within:border-ring",
         "aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
         "aria-disabled:opacity-60",
-      )} aria-disabled={disabled}
+      )} 
+      aria-disabled={disabled} 
+      aria-invalid={invalid}
     >
       {children}
       <input
@@ -38,6 +41,9 @@ function Input({
           "placeholder:text-foreground",
           className
         )}
+        aria-invalid={invalid}
+        disabled={disabled}
+        value={value}
         {...props}
       />
     </div>

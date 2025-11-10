@@ -10,7 +10,7 @@ import { DefaultReactThemes } from "@lotexiu/react/theme/implementations";
 export const Theme = ReactWrapper(
   class extends ReactClientComponent {
     setupHooks(): void {
-      const theme: TTheme = DefaultReactThemes.volcanic.dark
+      const theme: TTheme = DefaultReactThemes.oceanic.dark
       useEffect(() => {
         ThemeUtils.applyThemeToDocument(theme);
       });
