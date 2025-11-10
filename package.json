@@ -17,7 +17,11 @@
     "react-dom": "^19.2.0",
     "tailwind-merge": "^3.4.0",
     "@lotexiu/react": "workspace:*",
-    "@lotexiu/typescript": "workspace:*"
+    "@lotexiu/typescript": "workspace:*",
+    "@radix-ui/react-label": "^2.1.8",
+    "@radix-ui/react-slot": "^1.2.4",
+    "react-hook-form": "^7.66.0",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@lotexiu/typescript-config": "workspace:*",
