@@ -15,7 +15,7 @@ export const LoginContainer = ReactWrapper(
     }
 
 		onInit(): void {
-			
+
 		}
 
     switchToSignUp() {

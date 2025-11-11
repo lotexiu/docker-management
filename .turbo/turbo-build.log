@@ -6,15 +6,16 @@
    [1m[38;2;173;127;168m▲ Next.js 16.0.1[39m[22m (Turbopack)
 
  [37m[1m [22m[39m Creating an optimized production build ...
- [32m[1m✓[22m[39m Compiled successfully in 2.4s
-[?25l [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G[?25h[?25l [37m[1m [22m[39m Finished TypeScript in 1636.9ms  [36m.[39m[2K[1G[?25h [37m[1m [22m[39m Finished TypeScript in 1636.9ms     [32m[1m✓[22m[39m Finished TypeScript in 1636.9ms 
-[?25l [37m[1m [22m[39m Collecting page data  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting page data  [36m..[39m[2K[1G[?25h [37m[1m [22m[39m Collecting page data in 385.9ms     [32m[1m✓[22m[39m Collecting page data in 385.9ms 
-[?25l [37m[1m [22m[39m Generating static pages (0/4)  [36m[    ][39m[2K[1G [37m[1m [22m[39m Generating static pages (0/4)  [36m[=   ][39m[2K[1G [37m[1m [22m[39m Generating static pages (0/4)  [36m[==  ][39m[2K[1G[?25h [32m[1m✓[22m[39m Generating static pages (4/4) in 443.4ms
-[?25l [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G[?25h [37m[1m [22m[39m Finalizing page optimization in 3.4ms     [32m[1m✓[22m[39m Finalizing page optimization in 3.4ms 
+ [32m[1m✓[22m[39m Compiled successfully in 3.0s
+[?25l [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G[?25h[?25l [37m[1m [22m[39m Finished TypeScript in 2.3s  [36m.[39m[2K[1G[?25h [37m[1m [22m[39m Finished TypeScript in 2.3s     [32m[1m✓[22m[39m Finished TypeScript in 2.3s 
+[?25l [37m[1m [22m[39m Collecting page data  [36m.[39m[2K[1G [37m[1m [22m[39m Collecting page data  [36m..[39m[2K[1G[?25h [37m[1m [22m[39m Collecting page data in 374.7ms     [32m[1m✓[22m[39m Collecting page data in 374.7ms 
+[?25l [37m[1m [22m[39m Generating static pages (0/5)  [36m[    ][39m[2K[1G [37m[1m [22m[39m Generating static pages (0/5)  [36m[=   ][39m[2K[1G [37m[1m [22m[39m Generating static pages (0/5)  [36m[==  ][39m[2K[1G[?25h [32m[1m✓[22m[39m Generating static pages (5/5) in 489.7ms
+[?25l [37m[1m [22m[39m Finalizing page optimization  [36m.[39m[2K[1G[?25h [37m[1m [22m[39m Finalizing page optimization in 9.5ms     [32m[1m✓[22m[39m Finalizing page optimization in 9.5ms 
 
 [4mRoute (app)[24m
 ┌ ○ /
-└ ○ /_not-found
+├ ○ /_not-found
+└ ○ /login
 
 
 ○  (Static)  prerendered as static content

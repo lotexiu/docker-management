@@ -50,10 +50,6 @@ export const SignIn = ReactWrapper(
       console.log("SignIn initialized");
     }
 
-    onPropsChange(properties: Property<this["props"], keyof this["props"]>): void {
-      console.log(properties)
-    }
-
     setupHooks(): void {
       // useForm pode ser chamado aqui porque setupHooks é executado
       // dentro do contexto do wrapper funcional (hooks válidos)

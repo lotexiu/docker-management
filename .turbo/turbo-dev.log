@@ -1,12 +1,16 @@
 
-> docker-management@0.1.0 dev /home/alephmelo/Área de trabalho/repositories/aleph-typescript/apps/docker-management
+> docker-management@0.1.0 dev /home/sg/repositories/aleph-typescript/apps/docker-management
 > next dev --port 3002
 
    [1m[38;2;173;127;168m▲ Next.js 16.0.1[39m[22m (Turbopack)
    - Local:        http://localhost:3002
-   - Network:      http://192.168.200.128:3002
+   - Network:      http://172.16.101.155:3002
 
  [32m[1m✓[22m[39m Starting...
- [32m[1m✓[22m[39m Ready in 1018ms
- [37m[1m○[22m[39m Compiling /login ...
- GET /login [32m200[39m in 5.1s[2m (compile: 4.7s, render: 404ms)[22m
+ [32m[1m✓[22m[39m Ready in 962ms
+ GET /login [32m200[39m in 3.4s[2m (compile: 3.1s, render: 288ms)[22m
+ [32m[1m✓[22m[39m Compiled in 53ms
+ [32m[1m✓[22m[39m Compiled in 27ms
+ [32m[1m✓[22m[39m Compiled in 39ms
+ [32m[1m✓[22m[39m Compiled in 28ms
+ [32m[1m✓[22m[39m Compiled in 31ms
