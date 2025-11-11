@@ -7,10 +7,42 @@
    - Network:      http://172.16.101.155:3002
 
  [32m[1m✓[22m[39m Starting...
- [32m[1m✓[22m[39m Ready in 962ms
- GET /login [32m200[39m in 3.4s[2m (compile: 3.1s, render: 288ms)[22m
- [32m[1m✓[22m[39m Compiled in 53ms
- [32m[1m✓[22m[39m Compiled in 27ms
- [32m[1m✓[22m[39m Compiled in 39ms
- [32m[1m✓[22m[39m Compiled in 28ms
- [32m[1m✓[22m[39m Compiled in 31ms
+ [32m[1m✓[22m[39m Ready in 1482ms
+ [37m[1m○[22m[39m Compiling /docker/containers/list ...
+ GET /docker/containers/list [32m200[39m in 3.6s[2m (compile: 3.3s, render: 340ms)[22m
+ [31m[1m⨯[22m[39m ./node_modules/.pnpm/cpu-features@0.0.10/node_modules/cpu-features/lib/index.js:3:17
+[1m[31mModule not found[39m[22m: Can't resolve [32m'../build/Release/cpufeatures.node'[39m
+[0m [90m 1 |[39m [32m'use strict'[39m[33m;[39m
+ [90m 2 |[39m
+[31m[1m>[22m[39m[90m 3 |[39m [36mconst[39m binding [33m=[39m require([32m'../build/Release/cpufeatures.node'[39m)[33m;[39m
+ [90m   |[39m                 [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 4 |[39m
+ [90m 5 |[39m module[33m.[39mexports [33m=[39m binding[33m.[39mgetCPUInfo[33m;[39m
+ [90m 6 |[39m[0m
+
+
+
+Import trace:
+  App Route:
+    ./node_modules/.pnpm/cpu-features@0.0.10/node_modules/cpu-features/lib/index.js
+    ./node_modules/.pnpm/ssh2@1.17.0/node_modules/ssh2/lib/protocol/constants.js
+    ./node_modules/.pnpm/ssh2@1.17.0/node_modules/ssh2/lib/client.js
+    ./node_modules/.pnpm/ssh2@1.17.0/node_modules/ssh2/lib/index.js
+    ./node_modules/.pnpm/docker-modem@5.0.6/node_modules/docker-modem/lib/ssh.js
+    ./node_modules/.pnpm/docker-modem@5.0.6/node_modules/docker-modem/lib/modem.js
+    ./node_modules/.pnpm/dockerode@4.0.9/node_modules/dockerode/lib/docker.js
+    ./apps/docker-management/src/app/api/docker/containers/utils.ts
+    ./apps/docker-management/src/app/api/docker/containers/list/route.ts
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+ [33m[1m⚠[22m[39m ./node_modules/.pnpm/ssh2@1.17.0/node_modules/ssh2/lib/protocol
+Package [32mcpu-features[39m can't be external
+The request [32mcpu-features[39m matches [32mserverExternalPackages[39m (or the default list).
+The request could not be resolved by Node.js from the project directory.
+Packages that should be external need to be installed in the project directory, so they can be resolved from the output files.
+Try to install it into the project directory by running [32mnpm install cpu-features[39m from the project directory.
+
+
+ GET /api/docker/containers/list?page=1&pageSize=10&all=true [31m500[39m in 2.8s[2m (compile: 2.7s, render: 131ms)[22m

@@ -2,48 +2,47 @@
 
 import * as React from "react";
 import { ReactWrapper } from "@lotexiu/react/components/implementations";
-import { ReactClientComponent } from "@lotexiu/react/components/ReactComponent/ReactClientComponent";
 import { useForm } from "react-hook-form";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { Lock, Mail, User } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Property } from "@lotexiu/typescript/natives/object/proxy/types";
+import { AuthFormBase, FormFieldConfig } from "./AuthFormBase";
 
-type SignUpFormValues = {
-  username: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-};
+// Schema de validação com Zod
+const signUpSchema = z.object({
+  username: z
+    .string()
+    .min(3, "Username deve ter no mínimo 3 caracteres")
+    .max(20, "Username deve ter no máximo 20 caracteres")
+    .regex(/^[a-zA-Z0-9_]+$/, "Apenas letras, números e underscore"),
+  email: z
+    .string()
+    .email("Email inválido")
+    .toLowerCase(),
+  password: z
+    .string()
+    .min(6, "Senha deve ter no mínimo 6 caracteres")
+    .max(100, "Senha deve ter no máximo 100 caracteres"),
+  confirmPassword: z.string().min(1, "Confirmação de senha obrigatória"),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "As senhas não coincidem",
+  path: ["confirmPassword"],
+});
+
+type SignUpFormValues = z.infer<typeof signUpSchema>;
 
 type SignUpProps = {
   onSwitchToSignIn?: () => void;
 };
 
 export const SignUp = ReactWrapper(
-  class SignUp extends ReactClientComponent<SignUpProps> {
+  class SignUp extends ReactWrapper.ClientComponent<SignUpProps> {
     form: any;
     serverMessage: string | null = null;
 
     setupHooks(): void {
       this.form = useForm<SignUpFormValues>({
+        resolver: zodResolver(signUpSchema),
         defaultValues: {
           username: "",
           email: "",
@@ -56,202 +55,101 @@ export const SignUp = ReactWrapper(
 
     async onSubmit(values: SignUpFormValues) {
       this.serverMessage = null;
-      
-      // Simulando chamada externa
-      await new Promise((r) => setTimeout(r, 500));
 
-      // Validação simples
-      if (values.password !== values.confirmPassword) {
-        this.serverMessage = "As senhas não coincidem";
-        this.updateView();
-        return;
-      }
+      try {
+        const response = await fetch("/api/person/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: values.username,
+            email: values.email,
+            password: values.password,
+          }),
+        });
 
-      this.serverMessage = "Conta criada com sucesso! Faça login para continuar.";
-      this.updateView();
+        const data = await response.json();
 
-      // Após 2 segundos, trocar para tela de login
-      setTimeout(() => {
-        if (this.props.onSwitchToSignIn) {
-          this.props.onSwitchToSignIn();
+        if (response.ok) {
+          this.serverMessage = data.message || "Conta criada com sucesso! Faça login para continuar.";
+          this.updateView();
+
+          // Após 2 segundos, trocar para tela de login
+          setTimeout(() => {
+            if (this.props.onSwitchToSignIn) {
+              this.props.onSwitchToSignIn();
+            }
+          }, 2000);
+        } else {
+          this.serverMessage = data.message || "Erro ao criar conta";
+          this.updateView();
         }
-      }, 2000);
+      } catch (error) {
+        this.serverMessage = "Erro ao conectar com o servidor";
+        console.error("Erro no registro:", error);
+        this.updateView();
+      }
     }
 
     render(): React.ReactNode {
-      const form = this.form;
+      const fields: FormFieldConfig[] = [
+        {
+          name: "username",
+          label: "Nome de usuário",
+          placeholder: "seu_usuario",
+          type: "text",
+          icon: User,
+        },
+        {
+          name: "email",
+          label: "Email",
+          placeholder: "user@gmail.com",
+          type: "email",
+          icon: Mail,
+        },
+        {
+          name: "password",
+          label: "Senha",
+          placeholder: "••••••••",
+          type: "password",
+          icon: Lock,
+        },
+        {
+          name: "confirmPassword",
+          label: "Confirmar Senha",
+          placeholder: "••••••••",
+          type: "password",
+          icon: Lock,
+        },
+      ];
 
       return (
-        <div
-          className={cn(
-            "absolute w-full h-full",
-            "content-center justify-items-center",
-            "flex items-center justify-center"
-          )}
-        >
-          <Card className="w-[40%] min-w-sm max-w-4xl">
-            <CardHeader>
-              <CardTitle>Sign Up</CardTitle>
-              <CardDescription>Create a new account to get started.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(this.onSubmit)}
-                  className="flex flex-col gap-4"
-                >
-                  <FormField
-                    control={form.control}
-                    name="username"
-                    rules={{
-                      required: "Nome de usuário obrigatório",
-                      minLength: { value: 3, message: "Mínimo 3 caracteres" },
-                      pattern: {
-                        value: /^[a-zA-Z0-9_]+$/,
-                        message: "Apenas letras, números e underscore",
-                      },
-                    }}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Nome de usuário</FormLabel>
-                        <FormControl>
-                          <Input
-                            id="username"
-                            placeholder="seu_usuario"
-                            value={field.value}
-                            onChange={(e) => field.onChange(e)}
-                          >
-                            <User className="h-4 w-4 text-foreground" />
-                          </Input>
-                        </FormControl>
-                        <FormMessage>{form.formState.errors.username?.message}</FormMessage>
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    rules={{
-                      required: "Email obrigatório",
-                      pattern: {
-                        value: /\S+@\S+\.\S+/,
-                        message: "Email inválido",
-                      },
-                    }}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Email</FormLabel>
-                        <FormControl>
-                          <Input
-                            id="email"
-                            type="email"
-                            placeholder="user@gmail.com"
-                            value={field.value}
-                            onChange={(e) => field.onChange(e)}
-                          >
-                            <Mail className="h-4 w-4 text-foreground" />
-                          </Input>
-                        </FormControl>
-                        <FormMessage>{form.formState.errors.email?.message}</FormMessage>
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="password"
-                    rules={{
-                      required: "Senha obrigatória",
-                      minLength: { value: 6, message: "Mínimo 6 caracteres" },
-                    }}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Senha</FormLabel>
-                        <FormControl>
-                          <Input
-                            id="password"
-                            type="password"
-                            placeholder="••••••••"
-                            value={field.value}
-                            onChange={(e) => field.onChange(e)}
-                          >
-                            <Lock className="h-4 w-4 text-foreground" />
-                          </Input>
-                        </FormControl>
-                        <FormMessage>{form.formState.errors.password?.message}</FormMessage>
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="confirmPassword"
-                    rules={{
-                      required: "Confirmação de senha obrigatória",
-                      validate: (value: string) => {
-                        const password = form.getValues("password");
-                        return value === password || "As senhas não coincidem";
-                      },
-                    }}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Confirmar Senha</FormLabel>
-                        <FormControl>
-                          <Input
-                            id="confirmPassword"
-                            type="password"
-                            placeholder="••••••••"
-                            value={field.value}
-                            onChange={(e) => field.onChange(e)}
-                          >
-                            <Lock className="h-4 w-4 text-foreground" />
-                          </Input>
-                        </FormControl>
-                        <FormMessage>{form.formState.errors.confirmPassword?.message}</FormMessage>
-                      </FormItem>
-                    )}
-                  />
-
-                  <div className="flex justify-center">
-                    <Button
-                      type="submit"
-                      onClick={() => {
-                        form.trigger();
-                      }}
-                    >
-                      Criar Conta
-                    </Button>
-                  </div>
-                </form>
-              </Form>
-            </CardContent>
-            <CardFooter className="flex flex-col space-y-2">
-              {this.serverMessage && (
-                <div className={cn(
-                  "text-center text-sm mt-2",
-                  this.serverMessage.includes("sucesso") ? "text-green-600" : "text-red-600"
-                )}>
-                  {this.serverMessage}
-                </div>
-              )}
-              <div className="text-sm text-center text-muted-foreground">
-                Já tem uma conta?{" "}
-                <button
-                  type="button"
-                  className="text-primary hover:underline font-medium"
-                  onClick={() => {
-                    if (this.props.onSwitchToSignIn) {
-                      this.props.onSwitchToSignIn();
-                    }
-                  }}
-                >
-                  Faça login aqui
-                </button>
-              </div>
-            </CardFooter>
-          </Card>
-        </div>
+        <AuthFormBase
+          title="Sign Up"
+          description="Create a new account to get started."
+          fields={fields}
+          form={this.form}
+          onSubmit={this.onSubmit}
+          submitButtonText="Criar Conta"
+          serverMessage={this.serverMessage}
+          footerContent={(
+						<div className="text-sm text-center">
+							Já tem uma conta?{" "}
+							<button
+								type="button"
+								className="text-primary hover:underline font-medium"
+								onClick={() => {
+									if (this.props.onSwitchToSignIn) {
+										this.props.onSwitchToSignIn();
+									}
+								}}
+							>
+								Faça login aqui
+							</button>
+						</div>
+					)}
+        />
       );
     }
   }

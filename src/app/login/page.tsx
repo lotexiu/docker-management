@@ -5,12 +5,11 @@ import { LoginContainer } from "./client/LoginContainer"
 
 
 const LoginPage = ReactWrapper(
-  class LoginPage extends ReactServerComponent {
-    
+  class LoginPage extends ReactWrapper.ServerComponent {
     render(): ReactNode {
       return (
         <div>
-          <LoginContainer />
+          <LoginContainer/>
         </div>
       )
     }
