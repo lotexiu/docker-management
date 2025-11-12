@@ -32,7 +32,7 @@ export default function RootLayout({
         geistMono.variable,
         "antialiased bg-linear-to-br from-background to-accent/40"
       )}>
-				<div>
+				<div className="relative overflow-y-auto h-screen">
         	{children}
 				</div>
       </body>
