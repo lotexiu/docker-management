@@ -1,7 +1,7 @@
-import { ReactWrapper } from '@lotexiu/react/components/implementations';
-import { ReactNode } from 'react';
-import '@lotexiu/typescript/global';
-import { Spinner } from '@/components/ui/spinner';
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactNode } from "react";
+import "@lotexiu/typescript/global";
+import { Spinner } from "@/components/ui/spinner";
 
 interface DockerContainersListLoadingProps {
 	loading: boolean;
@@ -24,7 +24,7 @@ export const DockerContainersListLoading = ReactWrapper(
 						</div>
 					)}
 				</>
-			)
+			);
 		}
-	}
-)
+	},
+);

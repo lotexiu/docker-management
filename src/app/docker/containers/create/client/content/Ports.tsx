@@ -1,17 +1,17 @@
-import { ReactWrapper } from '@lotexiu/react/components/implementations';
-import { ReactNode } from 'react';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactNode } from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from '@/components/ui/select';
-import { PlusCircleIcon, XIcon } from 'lucide-react';
-import { PortMapping } from '../../types';
+} from "@/components/ui/select";
+import { PlusCircleIcon, XIcon } from "lucide-react";
+import { PortMapping } from "../../types";
 
 interface DockerContainerCreatePortsProps {
 	ports: PortMapping[];
@@ -37,7 +37,8 @@ export const DockerContainerCreatePorts = ReactWrapper(
 
 					{ports.length === 0 && (
 						<p className="text-sm text-foreground">
-							Nenhuma porta configurada. Clique em "Adicionar Porta" para mapear portas.
+							Nenhuma porta configurada. Clique em "Adicionar Porta" para mapear
+							portas.
 						</p>
 					)}
 
@@ -50,7 +51,7 @@ export const DockerContainerCreatePorts = ReactWrapper(
 									placeholder="80"
 									value={port.containerPort}
 									onChange={(e) =>
-										onUpdate(index, 'containerPort', e.target.value)
+										onUpdate(index, "containerPort", e.target.value)
 									}
 								/>
 							</div>
@@ -61,7 +62,7 @@ export const DockerContainerCreatePorts = ReactWrapper(
 									type="number"
 									placeholder="8080"
 									value={port.hostPort}
-									onChange={(e) => onUpdate(index, 'hostPort', e.target.value)}
+									onChange={(e) => onUpdate(index, "hostPort", e.target.value)}
 								/>
 							</div>
 
@@ -69,9 +70,7 @@ export const DockerContainerCreatePorts = ReactWrapper(
 								<Label>Protocolo</Label>
 								<Select
 									value={port.protocol}
-									onValueChange={(value) =>
-										onUpdate(index, 'protocol', value)
-									}
+									onValueChange={(value) => onUpdate(index, "protocol", value)}
 								>
 									<SelectTrigger>
 										<SelectValue />
@@ -97,5 +96,5 @@ export const DockerContainerCreatePorts = ReactWrapper(
 				</div>
 			);
 		}
-	}
+	},
 );

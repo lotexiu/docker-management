@@ -15,8 +15,11 @@ interface DockerContainersListContentProps {
 	handlePageSizeChange: (value: string) => void;
 	loading: boolean;
 	containers: ContainerData[];
-	actionLoading:  Record<string, boolean>
-	performContainerAction: (containerId: string, action: string) => Promise<void>;
+	actionLoading: Record<string, boolean>;
+	performContainerAction: (
+		containerId: string,
+		action: string,
+	) => Promise<void>;
 	deleteContainer: (containerId: string) => Promise<void>;
 	handlePageChange: (page: number) => void;
 	renderPaginationItems: () => ReactNode;
@@ -26,15 +29,26 @@ export const DockerContainersListContent = ReactWrapper(
 	class DockerContainersListContent extends ReactWrapper.ClientComponent<DockerContainersListContentProps> {
 		render(): ReactNode | Promise<ReactNode> {
 			const {
-				error, pagination, handlePageSizeChange, loading, containers, actionLoading,
-				performContainerAction, deleteContainer, handlePageChange, renderPaginationItems
+				error,
+				pagination,
+				handlePageSizeChange,
+				loading,
+				containers,
+				actionLoading,
+				performContainerAction,
+				deleteContainer,
+				handlePageChange,
+				renderPaginationItems,
 			} = this.props;
 
 			return (
 				<CardContent>
-					<DockerContainersListError error={error}/>
-					<DockerContainersListControllers pagination={pagination} handlePageSizeChange={handlePageSizeChange}/>
-					<DockerContainersListLoading loading={loading}/>
+					<DockerContainersListError error={error} />
+					<DockerContainersListControllers
+						pagination={pagination}
+						handlePageSizeChange={handlePageSizeChange}
+					/>
+					<DockerContainersListLoading loading={loading} />
 					<DockerContainersListTable
 						loading={loading}
 						containers={containers}
@@ -54,7 +68,7 @@ export const DockerContainersListContent = ReactWrapper(
 						renderPaginationItems={renderPaginationItems}
 					/>
 				</CardContent>
-			)
+			);
 		}
-	}
-)
+	},
+);

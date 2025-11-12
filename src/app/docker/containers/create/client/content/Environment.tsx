@@ -1,10 +1,10 @@
-import { ReactWrapper } from '@lotexiu/react/components/implementations';
-import { ReactNode } from 'react';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
-import { PlusCircleIcon, XIcon } from 'lucide-react';
-import { EnvironmentVariable } from '../../types';
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactNode } from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { PlusCircleIcon, XIcon } from "lucide-react";
+import { EnvironmentVariable } from "../../types";
 
 interface DockerContainerCreateEnvironmentProps {
 	envVars: EnvironmentVariable[];
@@ -12,7 +12,7 @@ interface DockerContainerCreateEnvironmentProps {
 	onUpdate: (
 		index: number,
 		field: keyof EnvironmentVariable,
-		value: string
+		value: string,
 	) => void;
 	onRemove: (index: number) => void;
 }
@@ -45,7 +45,7 @@ export const DockerContainerCreateEnvironment = ReactWrapper(
 								<Input
 									placeholder="NODE_ENV"
 									value={env.key}
-									onChange={(e) => onUpdate(index, 'key', e.target.value)}
+									onChange={(e) => onUpdate(index, "key", e.target.value)}
 								/>
 							</div>
 
@@ -54,7 +54,7 @@ export const DockerContainerCreateEnvironment = ReactWrapper(
 								<Input
 									placeholder="production"
 									value={env.value}
-									onChange={(e) => onUpdate(index, 'value', e.target.value)}
+									onChange={(e) => onUpdate(index, "value", e.target.value)}
 								/>
 							</div>
 
@@ -72,5 +72,5 @@ export const DockerContainerCreateEnvironment = ReactWrapper(
 				</div>
 			);
 		}
-	}
+	},
 );

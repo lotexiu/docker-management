@@ -1,19 +1,18 @@
-import { ReactWrapper } from "@lotexiu/react/components/implementations"
-import { ReactServerComponent } from "@lotexiu/react/components/ReactComponent/ReactServerComponent"
-import { ReactNode } from "react"
-import { LoginContainer } from "./client/LoginContainer"
-
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactServerComponent } from "@lotexiu/react/components/ReactComponent/ReactServerComponent";
+import { ReactNode } from "react";
+import { LoginContainer } from "./client/LoginContainer";
 
 const LoginPage = ReactWrapper(
-  class LoginPage extends ReactWrapper.ServerComponent {
-    render(): ReactNode {
-      return (
-        <div>
-          <LoginContainer/>
-        </div>
-      )
-    }
-  }
-)
+	class LoginPage extends ReactWrapper.ServerComponent {
+		render(): ReactNode {
+			return (
+				<div>
+					<LoginContainer />
+				</div>
+			);
+		}
+	},
+);
 
 export default LoginPage;

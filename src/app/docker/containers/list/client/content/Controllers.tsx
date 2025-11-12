@@ -1,14 +1,14 @@
-import { ReactWrapper } from '@lotexiu/react/components/implementations';
-import { ReactNode } from 'react';
-import '@lotexiu/typescript/global';
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactNode } from "react";
+import "@lotexiu/typescript/global";
 import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from '@/components/ui/select';
-import { PaginationData } from '../../types';
+} from "@/components/ui/select";
+import { PaginationData } from "../../types";
 
 interface DockerContainersListControllersProps {
 	pagination: PaginationData;
@@ -25,9 +25,7 @@ export const DockerContainersListControllers = ReactWrapper(
 					{/* Controles */}
 					<div className="mb-4 flex items-center justify-between">
 						<div className="flex items-center gap-2">
-							<span className="text-sm text-foreground">
-								Itens por página:
-							</span>
+							<span className="text-sm text-foreground">Itens por página:</span>
 							<Select
 								value={String(pagination.pageSize)}
 								onValueChange={(value) => handlePageSizeChange(value)}
@@ -48,7 +46,7 @@ export const DockerContainersListControllers = ReactWrapper(
 						</span>
 					</div>
 				</>
-			)
+			);
 		}
-	}
-)
+	},
+);

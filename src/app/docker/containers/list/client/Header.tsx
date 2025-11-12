@@ -2,9 +2,8 @@ import { CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ReactWrapper } from "@lotexiu/react/components/implementations";
 import { Container, RefreshCwIcon, PlusCircleIcon } from "lucide-react";
 import { ReactNode } from "react";
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface DockerContainersListHeaderProps {
 	fetchContainers: () => Promise<void>;
@@ -40,13 +39,13 @@ export const DockerContainersListHeader = ReactWrapper(
 								disabled={loading}
 								variant="outline"
 							>
-								<RefreshCwIcon className={loading ? 'animate-spin' : ''} />
+								<RefreshCwIcon className={loading ? "animate-spin" : ""} />
 								Atualizar
 							</Button>
 						</div>
 					</div>
 				</CardHeader>
-			)
+			);
 		}
-	}
-)
+	},
+);
