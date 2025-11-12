@@ -1,12 +1,12 @@
-import { ReactWrapper } from '@lotexiu/react/components/implementations';
-import { ReactNode } from 'react';
-import '@lotexiu/typescript/global';
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactNode } from "react";
+import "@lotexiu/typescript/global";
 import {
 	useReactTable,
 	getCoreRowModel,
 	ColumnDef,
 	flexRender,
-} from '@tanstack/react-table';
+} from "@tanstack/react-table";
 import {
 	Table,
 	TableBody,
@@ -14,24 +14,27 @@ import {
 	TableHead,
 	TableHeader,
 	TableRow,
-} from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
-import { Spinner } from '@/components/ui/spinner';
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import {
 	PlayIcon,
 	PauseIcon,
 	RefreshCwIcon,
 	PowerIcon,
 	TrashIcon,
-} from 'lucide-react';
-import { ContainerData } from '../../../types';
-import { DockerContainerColumns } from './columns';
+} from "lucide-react";
+import { ContainerData } from "../../../types";
+import { DockerContainerColumns } from "./columns";
 
 interface DockerContainersListTableProps {
 	loading: boolean;
 	containers: ContainerData[];
 	actionLoading: Record<string, boolean>;
-	performContainerAction: (containerId: string, action: string) => Promise<void>;
+	performContainerAction: (
+		containerId: string,
+		action: string,
+	) => Promise<void>;
 	deleteContainer: (containerId: string) => Promise<void>;
 }
 
@@ -40,9 +43,12 @@ export const DockerContainersListTable = ReactWrapper(
 		table: ReturnType<typeof useReactTable<ContainerData>> | null = null;
 
 		setupHooks(): void {
-			const { useMemo } = require('react');
+			const { useMemo } = require("react");
 			// Definindo colunas usando useMemo
-			const columns: ColumnDef<ContainerData>[] = useMemo(() => DockerContainerColumns(this.renderActions.bind(this)), []);
+			const columns: ColumnDef<ContainerData>[] = useMemo(
+				() => DockerContainerColumns(this.renderActions.bind(this)),
+				[],
+			);
 
 			this.table = useReactTable({
 				data: this.props.containers,
@@ -57,12 +63,12 @@ export const DockerContainersListTable = ReactWrapper(
 
 			return (
 				<div className="flex items-center justify-end gap-1">
-					{container.state === 'running' && (
+					{container.state === "running" && (
 						<>
 							<Button
 								size="icon-sm"
 								variant="ghost"
-								onClick={() => performContainerAction(container.id, 'pause')}
+								onClick={() => performContainerAction(container.id, "pause")}
 								disabled={!!actionLoading[container.id]}
 								title="Pausar"
 							>
@@ -71,7 +77,7 @@ export const DockerContainersListTable = ReactWrapper(
 							<Button
 								size="icon-sm"
 								variant="ghost"
-								onClick={() => performContainerAction(container.id, 'restart')}
+								onClick={() => performContainerAction(container.id, "restart")}
 								disabled={!!actionLoading[container.id]}
 								title="Reiniciar"
 							>
@@ -80,7 +86,7 @@ export const DockerContainersListTable = ReactWrapper(
 							<Button
 								size="icon-sm"
 								variant="ghost"
-								onClick={() => performContainerAction(container.id, 'stop')}
+								onClick={() => performContainerAction(container.id, "stop")}
 								disabled={!!actionLoading[container.id]}
 								title="Parar"
 							>
@@ -88,22 +94,22 @@ export const DockerContainersListTable = ReactWrapper(
 							</Button>
 						</>
 					)}
-					{container.state === 'paused' && (
+					{container.state === "paused" && (
 						<Button
 							size="icon-sm"
 							variant="ghost"
-							onClick={() => performContainerAction(container.id, 'unpause')}
+							onClick={() => performContainerAction(container.id, "unpause")}
 							disabled={!!actionLoading[container.id]}
 							title="Retomar"
 						>
 							{actionLoading[container.id] ? <Spinner /> : <PlayIcon />}
 						</Button>
 					)}
-					{(container.state === 'exited' || container.state === 'created') && (
+					{(container.state === "exited" || container.state === "created") && (
 						<Button
 							size="icon-sm"
 							variant="ghost"
-							onClick={() => performContainerAction(container.id, 'start')}
+							onClick={() => performContainerAction(container.id, "start")}
 							disabled={!!actionLoading[container.id]}
 							title="Iniciar"
 						>
@@ -146,8 +152,8 @@ export const DockerContainersListTable = ReactWrapper(
 											? null
 											: flexRender(
 													header.column.columnDef.header,
-													header.getContext()
-											  )}
+													header.getContext(),
+												)}
 									</TableHead>
 								))}
 							</TableRow>
@@ -167,5 +173,5 @@ export const DockerContainersListTable = ReactWrapper(
 				</Table>
 			);
 		}
-	}
+	},
 );

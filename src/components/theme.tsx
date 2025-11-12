@@ -8,20 +8,20 @@ import { ReactClientComponent } from "@lotexiu/react/components/ReactComponent/R
 import { DefaultReactThemes } from "@lotexiu/react/theme/implementations";
 
 export const Theme = ReactWrapper(
-  class extends ReactClientComponent {
-    setupHooks(): void {
-      const theme: TTheme = DefaultReactThemes.oceanic.dark
-      useEffect(() => {
-        ThemeUtils.applyThemeToDocument(theme);
-      });
-    }
+	class extends ReactClientComponent {
+		setupHooks(): void {
+			const theme: TTheme = DefaultReactThemes.oceanic.dark;
+			useEffect(() => {
+				ThemeUtils.applyThemeToDocument(theme);
+			});
+		}
 
-    onChanges(property: Property<this, keyof this>): void {
-      // console.log(property)
-    }
+		onChanges(property: Property<this, keyof this>): void {
+			// console.log(property)
+		}
 
-    render(): ReactNode {
-      return null;
-    }
-  }
-)
+		render(): ReactNode {
+			return null;
+		}
+	},
+);

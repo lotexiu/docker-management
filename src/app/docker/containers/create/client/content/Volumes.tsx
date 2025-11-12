@@ -1,17 +1,17 @@
-import { ReactWrapper } from '@lotexiu/react/components/implementations';
-import { ReactNode } from 'react';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactNode } from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from '@/components/ui/select';
-import { PlusCircleIcon, XIcon } from 'lucide-react';
-import { VolumeMount } from '../../types';
+} from "@/components/ui/select";
+import { PlusCircleIcon, XIcon } from "lucide-react";
+import { VolumeMount } from "../../types";
 
 interface DockerContainerCreateVolumesProps {
 	volumes: VolumeMount[];
@@ -48,7 +48,7 @@ export const DockerContainerCreateVolumes = ReactWrapper(
 								<Input
 									placeholder="/path/on/host"
 									value={volume.hostPath}
-									onChange={(e) => onUpdate(index, 'hostPath', e.target.value)}
+									onChange={(e) => onUpdate(index, "hostPath", e.target.value)}
 								/>
 							</div>
 
@@ -58,7 +58,7 @@ export const DockerContainerCreateVolumes = ReactWrapper(
 									placeholder="/path/in/container"
 									value={volume.containerPath}
 									onChange={(e) =>
-										onUpdate(index, 'containerPath', e.target.value)
+										onUpdate(index, "containerPath", e.target.value)
 									}
 								/>
 							</div>
@@ -66,8 +66,8 @@ export const DockerContainerCreateVolumes = ReactWrapper(
 							<div className="w-32 space-y-2">
 								<Label>Modo</Label>
 								<Select
-									value={volume.mode || 'rw'}
-									onValueChange={(value) => onUpdate(index, 'mode', value)}
+									value={volume.mode || "rw"}
+									onValueChange={(value) => onUpdate(index, "mode", value)}
 								>
 									<SelectTrigger>
 										<SelectValue />
@@ -93,5 +93,5 @@ export const DockerContainerCreateVolumes = ReactWrapper(
 				</div>
 			);
 		}
-	}
+	},
 );

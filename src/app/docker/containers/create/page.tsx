@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { ReactWrapper } from '@lotexiu/react/components/implementations';
-import { ReactNode } from 'react';
-import '@lotexiu/typescript/global';
-import { DockerContainerCreateHeader } from './client/Header';
-import { DockerContainerCreateContent } from './client/content/Content';
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactNode } from "react";
+import "@lotexiu/typescript/global";
+import { DockerContainerCreateHeader } from "./client/Header";
+import { DockerContainerCreateContent } from "./client/content/Content";
 import {
 	ApiResponse,
 	CreateContainerFormData,
@@ -12,24 +12,24 @@ import {
 	EnvironmentVariable,
 	VolumeMount,
 	LabelEntry,
-} from './types';
-import { useRouter } from 'next/navigation';
+} from "./types";
+import { useRouter } from "next/navigation";
 
 const DockerContainerCreatePage = ReactWrapper(
 	class DockerContainerCreatePage extends ReactWrapper.ClientComponent {
 		// Form state
-		name: string = '';
-		image: string = '';
-		cmd: string = '';
-		workingDir: string = '';
-		user: string = '';
+		name: string = "";
+		image: string = "";
+		cmd: string = "";
+		workingDir: string = "";
+		user: string = "";
 		tty: boolean = false;
 
 		// Advanced options
-		memory: string = '';
-		cpuShares: string = '';
-		restartPolicy: '' | 'always' | 'unless-stopped' | 'on-failure' = '';
-		networkMode: string = '';
+		memory: string = "";
+		cpuShares: string = "";
+		restartPolicy: "" | "always" | "unless-stopped" | "on-failure" = "";
+		networkMode: string = "";
 
 		// Arrays for dynamic fields
 		ports: PortMapping[] = [];
@@ -50,7 +50,7 @@ const DockerContainerCreatePage = ReactWrapper(
 
 		// Port methods
 		addPort() {
-			this.ports.push({ containerPort: '', hostPort: '', protocol: 'tcp' });
+			this.ports.push({ containerPort: "", hostPort: "", protocol: "tcp" });
 			this.updateView();
 		}
 
@@ -68,11 +68,15 @@ const DockerContainerCreatePage = ReactWrapper(
 
 		// Environment variable methods
 		addEnvVar() {
-			this.envVars.push({ key: '', value: '' });
+			this.envVars.push({ key: "", value: "" });
 			this.updateView();
 		}
 
-		updateEnvVar(index: number, field: keyof EnvironmentVariable, value: string) {
+		updateEnvVar(
+			index: number,
+			field: keyof EnvironmentVariable,
+			value: string,
+		) {
 			if (this.envVars[index]) {
 				this.envVars[index][field] = value;
 				this.updateView();
@@ -86,7 +90,7 @@ const DockerContainerCreatePage = ReactWrapper(
 
 		// Volume methods
 		addVolume() {
-			this.volumes.push({ hostPath: '', containerPath: '', mode: 'rw' });
+			this.volumes.push({ hostPath: "", containerPath: "", mode: "rw" });
 			this.updateView();
 		}
 
@@ -104,7 +108,7 @@ const DockerContainerCreatePage = ReactWrapper(
 
 		// Label methods
 		addLabel() {
-			this.labels.push({ key: '', value: '' });
+			this.labels.push({ key: "", value: "" });
 			this.updateView();
 		}
 
@@ -128,7 +132,7 @@ const DockerContainerCreatePage = ReactWrapper(
 
 			// Validate
 			if (!this.image.trim()) {
-				this.error = 'Imagem é obrigatória';
+				this.error = "Imagem é obrigatória";
 				this.updateView();
 				return;
 			}
@@ -143,8 +147,9 @@ const DockerContainerCreatePage = ReactWrapper(
 				};
 
 				if (this.name.trim()) formData.name = this.name.trim();
-				if (this.cmd.trim()) formData.cmd = this.cmd.split(' ').filter(Boolean);
-				if (this.workingDir.trim()) formData.workingDir = this.workingDir.trim();
+				if (this.cmd.trim()) formData.cmd = this.cmd.split(" ").filter(Boolean);
+				if (this.workingDir.trim())
+					formData.workingDir = this.workingDir.trim();
 				if (this.user.trim()) formData.user = this.user.trim();
 				formData.tty = this.tty;
 
@@ -182,7 +187,7 @@ const DockerContainerCreatePage = ReactWrapper(
 				if (this.volumes.length > 0) {
 					const binds = this.volumes
 						.filter((v) => v.hostPath.trim() && v.containerPath.trim())
-						.map((v) => `${v.hostPath}:${v.containerPath}:${v.mode || 'rw'}`);
+						.map((v) => `${v.hostPath}:${v.containerPath}:${v.mode || "rw"}`);
 
 					if (binds.length > 0) {
 						if (!formData.hostConfig) formData.hostConfig = {};
@@ -204,7 +209,12 @@ const DockerContainerCreatePage = ReactWrapper(
 				}
 
 				// Host config
-				if (this.memory.trim() || this.cpuShares.trim() || this.restartPolicy || this.networkMode.trim()) {
+				if (
+					this.memory.trim() ||
+					this.cpuShares.trim() ||
+					this.restartPolicy ||
+					this.networkMode.trim()
+				) {
 					if (!formData.hostConfig) formData.hostConfig = {};
 
 					if (this.memory.trim()) {
@@ -222,30 +232,30 @@ const DockerContainerCreatePage = ReactWrapper(
 				}
 
 				// Make API call
-				const response = await fetch('/api/docker/containers', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
+				const response = await fetch("/api/docker/containers", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify(formData),
 				});
 
-				if (response){
+				if (response) {
 					const result: ApiResponse = await response.json();
 					if (result.success) {
-						this.successMessage = 'Container criado com sucesso!';
+						this.successMessage = "Container criado com sucesso!";
 						this.updateView();
 
 						// Redirect after 2 seconds
 						setTimeout(() => {
-							this.router?.push('/docker/containers/list');
+							this.router?.push("/docker/containers/list");
 						}, 2000);
 					} else {
-						this.error = result.error || 'Erro ao criar container';
+						this.error = result.error || "Erro ao criar container";
 						this.updateView();
 					}
 				}
 			} catch (err) {
-				this.error = 'Erro ao conectar com a API';
-				console.error('Erro ao criar container:', err);
+				this.error = "Erro ao conectar com a API";
+				console.error("Erro ao criar container:", err);
 				this.updateView();
 			} finally {
 				this.loading = false;
@@ -254,16 +264,16 @@ const DockerContainerCreatePage = ReactWrapper(
 		}
 
 		resetForm() {
-			this.name = '';
-			this.image = '';
-			this.cmd = '';
-			this.workingDir = '';
-			this.user = '';
+			this.name = "";
+			this.image = "";
+			this.cmd = "";
+			this.workingDir = "";
+			this.user = "";
 			this.tty = false;
-			this.memory = '';
-			this.cpuShares = '';
-			this.restartPolicy = '';
-			this.networkMode = '';
+			this.memory = "";
+			this.cpuShares = "";
+			this.restartPolicy = "";
+			this.networkMode = "";
 			this.ports = [];
 			this.envVars = [];
 			this.volumes = [];
@@ -304,13 +314,19 @@ const DockerContainerCreatePage = ReactWrapper(
 						onUpdatePort={(idx, field, val) => this.updatePort(idx, field, val)}
 						onRemovePort={(idx) => this.removePort(idx)}
 						onAddEnvVar={() => this.addEnvVar()}
-						onUpdateEnvVar={(idx, field, val) => this.updateEnvVar(idx, field, val)}
+						onUpdateEnvVar={(idx, field, val) =>
+							this.updateEnvVar(idx, field, val)
+						}
 						onRemoveEnvVar={(idx) => this.removeEnvVar(idx)}
 						onAddVolume={() => this.addVolume()}
-						onUpdateVolume={(idx, field, val) => this.updateVolume(idx, field, val)}
+						onUpdateVolume={(idx, field, val) =>
+							this.updateVolume(idx, field, val)
+						}
 						onRemoveVolume={(idx) => this.removeVolume(idx)}
 						onAddLabel={() => this.addLabel()}
-						onUpdateLabel={(idx, field, val) => this.updateLabel(idx, field, val)}
+						onUpdateLabel={(idx, field, val) =>
+							this.updateLabel(idx, field, val)
+						}
 						onRemoveLabel={(idx) => this.removeLabel(idx)}
 						onSubmit={() => this.handleSubmit()}
 						onReset={() => this.resetForm()}
@@ -322,7 +338,7 @@ const DockerContainerCreatePage = ReactWrapper(
 				</div>
 			);
 		}
-	}
+	},
 );
 
 export default DockerContainerCreatePage;

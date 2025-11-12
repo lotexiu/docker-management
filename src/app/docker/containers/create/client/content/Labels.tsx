@@ -1,10 +1,10 @@
-import { ReactWrapper } from '@lotexiu/react/components/implementations';
-import { ReactNode } from 'react';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
-import { PlusCircleIcon, XIcon } from 'lucide-react';
-import { LabelEntry } from '../../types';
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactNode } from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { PlusCircleIcon, XIcon } from "lucide-react";
+import { LabelEntry } from "../../types";
 
 interface DockerContainerCreateLabelsProps {
 	labels: LabelEntry[];
@@ -29,9 +29,7 @@ export const DockerContainerCreateLabels = ReactWrapper(
 					</div>
 
 					{labels.length === 0 && (
-						<p className="text-sm text-foreground">
-							Nenhum label configurado.
-						</p>
+						<p className="text-sm text-foreground">Nenhum label configurado.</p>
 					)}
 
 					{labels.map((label, index) => (
@@ -41,7 +39,7 @@ export const DockerContainerCreateLabels = ReactWrapper(
 								<Input
 									placeholder="app.name"
 									value={label.key}
-									onChange={(e) => onUpdate(index, 'key', e.target.value)}
+									onChange={(e) => onUpdate(index, "key", e.target.value)}
 								/>
 							</div>
 
@@ -50,7 +48,7 @@ export const DockerContainerCreateLabels = ReactWrapper(
 								<Input
 									placeholder="my-app"
 									value={label.value}
-									onChange={(e) => onUpdate(index, 'value', e.target.value)}
+									onChange={(e) => onUpdate(index, "value", e.target.value)}
 								/>
 							</div>
 
@@ -68,5 +66,5 @@ export const DockerContainerCreateLabels = ReactWrapper(
 				</div>
 			);
 		}
-	}
+	},
 );

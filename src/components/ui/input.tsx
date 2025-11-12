@@ -1,13 +1,25 @@
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
-import { ReactWrapper } from "@lotexiu/react/components/implementations"
+import { cn } from "@/lib/utils";
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
 import { Property } from "@lotexiu/typescript/natives/object/proxy/types";
 
 export const Input = ReactWrapper(
-	class Input extends ReactWrapper.ClientComponent<React.ComponentProps<"input">> {
+	class Input extends ReactWrapper.ClientComponent<
+		React.ComponentProps<"input">
+	> {
 		render(): React.ReactNode {
-			let { id, children, "aria-invalid": invalid, disabled, type, value, onChange, className, ...props } = this.props;
+			let {
+				id,
+				children,
+				"aria-invalid": invalid,
+				disabled,
+				type,
+				value,
+				onChange,
+				className,
+				...props
+			} = this.props;
 			value = value ?? "";
 
 			return (
@@ -37,14 +49,14 @@ export const Input = ReactWrapper(
 							"selection:text-primary-foreground selection:bg-primary",
 							"file:text-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium",
 							"placeholder:text-foreground",
-							className
+							className,
 						)}
 						aria-invalid={invalid}
 						disabled={disabled}
 						{...props}
 					/>
 				</div>
-			)
+			);
 		}
-	}
-)
+	},
+);

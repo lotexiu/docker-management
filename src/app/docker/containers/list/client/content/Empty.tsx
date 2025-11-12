@@ -20,13 +20,11 @@ export const DockerContainersListEmpty = ReactWrapper(
 						<div className="flex flex-col items-center justify-center py-12 text-foreground">
 							<Container className="size-12 mb-4 opacity-50" />
 							<p className="text-lg font-medium">Nenhum container encontrado</p>
-							<p className="text-sm">
-								Crie um novo container para começar
-							</p>
+							<p className="text-sm">Crie um novo container para começar</p>
 						</div>
 					)}
 				</>
-			)
+			);
 		}
-	}
-)
+	},
+);

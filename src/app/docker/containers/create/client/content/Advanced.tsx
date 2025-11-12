@@ -1,19 +1,19 @@
-import { ReactWrapper } from '@lotexiu/react/components/implementations';
-import { ReactNode } from 'react';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactNode } from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 
 interface DockerContainerCreateAdvancedProps {
 	memory: string;
 	cpuShares: string;
-	restartPolicy: '' | 'always' | 'unless-stopped' | 'on-failure';
+	restartPolicy: "" | "always" | "unless-stopped" | "on-failure";
 	networkMode: string;
 	onFieldChange: (field: string, value: any) => void;
 }
@@ -36,7 +36,7 @@ export const DockerContainerCreateAdvanced = ReactWrapper(
 								type="number"
 								placeholder="536870912"
 								value={memory}
-								onChange={(e) => onFieldChange('memory', e.target.value)}
+								onChange={(e) => onFieldChange("memory", e.target.value)}
 							/>
 							<p className="text-xs text-foreground">
 								Limite de memória em bytes (ex: 536870912 = 512MB)
@@ -50,7 +50,7 @@ export const DockerContainerCreateAdvanced = ReactWrapper(
 								type="number"
 								placeholder="1024"
 								value={cpuShares}
-								onChange={(e) => onFieldChange('cpuShares', e.target.value)}
+								onChange={(e) => onFieldChange("cpuShares", e.target.value)}
 							/>
 							<p className="text-xs text-foreground">
 								Peso de CPU (padrão: 1024)
@@ -63,9 +63,7 @@ export const DockerContainerCreateAdvanced = ReactWrapper(
 							<Label htmlFor="restartPolicy">Política de Reinício</Label>
 							<Select
 								value={restartPolicy || undefined}
-								onValueChange={(value) =>
-									onFieldChange('restartPolicy', value)
-								}
+								onValueChange={(value) => onFieldChange("restartPolicy", value)}
 							>
 								<SelectTrigger id="restartPolicy">
 									<SelectValue placeholder="Nenhuma (padrão)" />
@@ -87,7 +85,7 @@ export const DockerContainerCreateAdvanced = ReactWrapper(
 								id="networkMode"
 								placeholder="bridge"
 								value={networkMode}
-								onChange={(e) => onFieldChange('networkMode', e.target.value)}
+								onChange={(e) => onFieldChange("networkMode", e.target.value)}
 							/>
 							<p className="text-xs text-foreground">
 								Modo de rede (bridge, host, none, etc.)
@@ -97,5 +95,5 @@ export const DockerContainerCreateAdvanced = ReactWrapper(
 				</div>
 			);
 		}
-	}
+	},
 );

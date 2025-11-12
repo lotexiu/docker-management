@@ -1,20 +1,20 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { ReactWrapper } from '@lotexiu/react/components/implementations';
-import { ReactNode } from 'react';
-import { DockerContainerCreateMessages } from './Messages';
-import { DockerContainerCreateBasicFields } from './BasicFields';
-import { DockerContainerCreatePorts } from './Ports';
-import { DockerContainerCreateEnvironment } from './Environment';
-import { DockerContainerCreateVolumes } from './Volumes';
-import { DockerContainerCreateLabels } from './Labels';
-import { DockerContainerCreateAdvanced } from './Advanced';
-import { DockerContainerCreateActions } from './Actions';
+import { Card, CardContent } from "@/components/ui/card";
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactNode } from "react";
+import { DockerContainerCreateMessages } from "./Messages";
+import { DockerContainerCreateBasicFields } from "./BasicFields";
+import { DockerContainerCreatePorts } from "./Ports";
+import { DockerContainerCreateEnvironment } from "./Environment";
+import { DockerContainerCreateVolumes } from "./Volumes";
+import { DockerContainerCreateLabels } from "./Labels";
+import { DockerContainerCreateAdvanced } from "./Advanced";
+import { DockerContainerCreateActions } from "./Actions";
 import {
 	PortMapping,
 	EnvironmentVariable,
 	VolumeMount,
 	LabelEntry,
-} from '../../types';
+} from "../../types";
 
 interface DockerContainerCreateContentProps {
 	// Basic fields
@@ -27,7 +27,7 @@ interface DockerContainerCreateContentProps {
 	// Advanced fields
 	memory: string;
 	cpuShares: string;
-	restartPolicy: '' | 'always' | 'unless-stopped' | 'on-failure';
+	restartPolicy: "" | "always" | "unless-stopped" | "on-failure";
 	networkMode: string;
 	// Arrays
 	ports: PortMapping[];
@@ -37,16 +37,32 @@ interface DockerContainerCreateContentProps {
 	// Handlers
 	onFieldChange: (field: string, value: any) => void;
 	onAddPort: () => void;
-	onUpdatePort: (index: number, field: keyof PortMapping, value: string) => void;
+	onUpdatePort: (
+		index: number,
+		field: keyof PortMapping,
+		value: string,
+	) => void;
 	onRemovePort: (index: number) => void;
 	onAddEnvVar: () => void;
-	onUpdateEnvVar: (index: number, field: keyof EnvironmentVariable, value: string) => void;
+	onUpdateEnvVar: (
+		index: number,
+		field: keyof EnvironmentVariable,
+		value: string,
+	) => void;
 	onRemoveEnvVar: (index: number) => void;
 	onAddVolume: () => void;
-	onUpdateVolume: (index: number, field: keyof VolumeMount, value: string) => void;
+	onUpdateVolume: (
+		index: number,
+		field: keyof VolumeMount,
+		value: string,
+	) => void;
 	onRemoveVolume: (index: number) => void;
 	onAddLabel: () => void;
-	onUpdateLabel: (index: number, field: keyof LabelEntry, value: string) => void;
+	onUpdateLabel: (
+		index: number,
+		field: keyof LabelEntry,
+		value: string,
+	) => void;
 	onRemoveLabel: (index: number) => void;
 	onSubmit: () => void;
 	onReset: () => void;
@@ -129,5 +145,5 @@ export const DockerContainerCreateContent = ReactWrapper(
 				</Card>
 			);
 		}
-	}
+	},
 );

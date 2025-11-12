@@ -21,7 +21,7 @@ export const DockerContainersListError = ReactWrapper(
 						</div>
 					)}
 				</>
-			)
+			);
 		}
-	}
-)
+	},
+);

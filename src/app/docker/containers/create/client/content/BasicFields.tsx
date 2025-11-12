@@ -1,8 +1,8 @@
-import { ReactWrapper } from '@lotexiu/react/components/implementations';
-import { ReactNode } from 'react';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Toggle } from '@/components/ui/toggle';
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactNode } from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Toggle } from "@/components/ui/toggle";
 
 interface DockerContainerCreateBasicFieldsProps {
 	name: string;
@@ -33,7 +33,7 @@ export const DockerContainerCreateBasicFields = ReactWrapper(
 								id="image"
 								placeholder="nginx:latest"
 								value={image}
-								onChange={(e) => onFieldChange('image', e.target.value)}
+								onChange={(e) => onFieldChange("image", e.target.value)}
 								required
 							/>
 							<p className="text-xs text-foreground">
@@ -47,7 +47,7 @@ export const DockerContainerCreateBasicFields = ReactWrapper(
 								id="name"
 								placeholder="meu-container"
 								value={name}
-								onChange={(e) => onFieldChange('name', e.target.value)}
+								onChange={(e) => onFieldChange("name", e.target.value)}
 							/>
 							<p className="text-xs text-foreground">
 								Nome personalizado (opcional)
@@ -62,7 +62,7 @@ export const DockerContainerCreateBasicFields = ReactWrapper(
 								id="cmd"
 								placeholder="npm start"
 								value={cmd}
-								onChange={(e) => onFieldChange('cmd', e.target.value)}
+								onChange={(e) => onFieldChange("cmd", e.target.value)}
 							/>
 							<p className="text-xs text-foreground">
 								Comando a ser executado (opcional)
@@ -75,7 +75,7 @@ export const DockerContainerCreateBasicFields = ReactWrapper(
 								id="workingDir"
 								placeholder="/app"
 								value={workingDir}
-								onChange={(e) => onFieldChange('workingDir', e.target.value)}
+								onChange={(e) => onFieldChange("workingDir", e.target.value)}
 							/>
 							<p className="text-xs text-foreground">
 								Working directory (opcional)
@@ -90,7 +90,7 @@ export const DockerContainerCreateBasicFields = ReactWrapper(
 								id="user"
 								placeholder="root"
 								value={user}
-								onChange={(e) => onFieldChange('user', e.target.value)}
+								onChange={(e) => onFieldChange("user", e.target.value)}
 							/>
 							<p className="text-xs text-foreground">
 								Usuário para executar o container (opcional)
@@ -102,20 +102,16 @@ export const DockerContainerCreateBasicFields = ReactWrapper(
 							<div className="flex items-center gap-2">
 								<Toggle
 									pressed={tty}
-									onPressedChange={(pressed) =>
-										onFieldChange('tty', pressed)
-									}
+									onPressedChange={(pressed) => onFieldChange("tty", pressed)}
 								>
-									{tty ? 'Habilitado' : 'Desabilitado'}
+									{tty ? "Habilitado" : "Desabilitado"}
 								</Toggle>
 							</div>
-							<p className="text-xs text-foreground">
-								Alocar um pseudo-TTY
-							</p>
+							<p className="text-xs text-foreground">Alocar um pseudo-TTY</p>
 						</div>
 					</div>
 				</div>
 			);
 		}
-	}
+	},
 );

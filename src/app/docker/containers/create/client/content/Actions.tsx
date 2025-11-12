@@ -1,8 +1,8 @@
-import { ReactWrapper } from '@lotexiu/react/components/implementations';
-import { ReactNode } from 'react';
-import { Button } from '@/components/ui/button';
-import { Spinner } from '@/components/ui/spinner';
-import { SaveIcon, XIcon } from 'lucide-react';
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactNode } from "react";
+import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
+import { SaveIcon, XIcon } from "lucide-react";
 
 interface DockerContainerCreateActionsProps {
 	loading: boolean;
@@ -42,5 +42,5 @@ export const DockerContainerCreateActions = ReactWrapper(
 				</div>
 			);
 		}
-	}
+	},
 );

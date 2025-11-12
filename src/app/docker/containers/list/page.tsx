@@ -1,15 +1,16 @@
-'use client';
+"use client";
 
-import { ReactWrapper } from '@lotexiu/react/components/implementations';
-import { ReactNode } from 'react';
-import '@lotexiu/typescript/global';
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactNode } from "react";
+import "@lotexiu/typescript/global";
 import {
 	PaginationItem,
-	PaginationLink, PaginationEllipsis
-} from '@/components/ui/pagination';
-import { DockerContainersListHeader } from './client/Header';
-import { DockerContainersListContent } from './client/content/Content';
-import { ApiResponse, ContainerData, PaginationData } from './types';
+	PaginationLink,
+	PaginationEllipsis,
+} from "@/components/ui/pagination";
+import { DockerContainersListHeader } from "./client/Header";
+import { DockerContainersListContent } from "./client/content/Content";
+import { ApiResponse, ContainerData, PaginationData } from "./types";
 
 const DockerContainersListPage = ReactWrapper(
 	class DockerContainersListPage extends ReactWrapper.ClientComponent {
@@ -31,7 +32,7 @@ const DockerContainersListPage = ReactWrapper(
 
 			try {
 				const response = await fetch(
-					`/api/docker/containers/list?page=${this.pagination.page}&pageSize=${this.pagination.pageSize}&all=true`
+					`/api/docker/containers/list?page=${this.pagination.page}&pageSize=${this.pagination.pageSize}&all=true`,
 				);
 				const result: ApiResponse<{
 					containers: ContainerData[];
@@ -42,11 +43,11 @@ const DockerContainersListPage = ReactWrapper(
 					this.containers = result.data.containers;
 					this.pagination = result.data.pagination;
 				} else {
-					this.error = result.error || 'Erro ao carregar containers';
+					this.error = result.error || "Erro ao carregar containers";
 				}
 			} catch (err) {
-				this.error = 'Erro ao conectar com a API';
-				console.error('Erro ao buscar containers:', err);
+				this.error = "Erro ao conectar com a API";
+				console.error("Erro ao buscar containers:", err);
 			} finally {
 				this.loading = false;
 				this.updateView();
@@ -67,10 +68,10 @@ const DockerContainersListPage = ReactWrapper(
 				const response = await fetch(
 					`/api/docker/containers/${containerId}/update`,
 					{
-						method: 'PUT',
-						headers: { 'Content-Type': 'application/json' },
+						method: "PUT",
+						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify({ action }),
-					}
+					},
 				);
 
 				const result: ApiResponse = await response.json();
@@ -83,8 +84,8 @@ const DockerContainersListPage = ReactWrapper(
 					this.updateView();
 				}
 			} catch (err) {
-				this.error = 'Erro ao executar ação no container';
-				console.error('Erro na ação do container:', err);
+				this.error = "Erro ao executar ação no container";
+				console.error("Erro na ação do container:", err);
 				this.updateView();
 			} finally {
 				delete this.actionLoading[containerId];
@@ -95,7 +96,7 @@ const DockerContainersListPage = ReactWrapper(
 		async deleteContainer(containerId: string) {
 			if (
 				!confirm(
-					'Tem certeza que deseja deletar este container? Esta ação não pode ser desfeita.'
+					"Tem certeza que deseja deletar este container? Esta ação não pode ser desfeita.",
 				)
 			) {
 				return;
@@ -108,8 +109,8 @@ const DockerContainersListPage = ReactWrapper(
 				const response = await fetch(
 					`/api/docker/containers/${containerId}/delete?force=true`,
 					{
-						method: 'DELETE',
-					}
+						method: "DELETE",
+					},
 				);
 
 				const result: ApiResponse = await response.json();
@@ -117,12 +118,12 @@ const DockerContainersListPage = ReactWrapper(
 				if (result.success) {
 					await this.fetchContainers();
 				} else {
-					this.error = result.error || 'Erro ao deletar container';
+					this.error = result.error || "Erro ao deletar container";
 					this.updateView();
 				}
 			} catch (err) {
-				this.error = 'Erro ao deletar container';
-				console.error('Erro ao deletar container:', err);
+				this.error = "Erro ao deletar container";
+				console.error("Erro ao deletar container:", err);
 				this.updateView();
 			} finally {
 				delete this.actionLoading[containerId];
@@ -150,7 +151,7 @@ const DockerContainersListPage = ReactWrapper(
 					>
 						1
 					</PaginationLink>
-				</PaginationItem>
+				</PaginationItem>,
 			);
 
 			if (totalPages <= 7) {
@@ -164,7 +165,7 @@ const DockerContainersListPage = ReactWrapper(
 							>
 								{i}
 							</PaginationLink>
-						</PaginationItem>
+						</PaginationItem>,
 					);
 				}
 			} else {
@@ -185,7 +186,7 @@ const DockerContainersListPage = ReactWrapper(
 							>
 								{i}
 							</PaginationLink>
-						</PaginationItem>
+						</PaginationItem>,
 					);
 				}
 
@@ -202,7 +203,7 @@ const DockerContainersListPage = ReactWrapper(
 							>
 								{totalPages}
 							</PaginationLink>
-						</PaginationItem>
+						</PaginationItem>,
 					);
 				}
 			}
@@ -213,7 +214,10 @@ const DockerContainersListPage = ReactWrapper(
 		render(): ReactNode {
 			return (
 				<div className="container mx-auto py-8 px-4">
-					<DockerContainersListHeader fetchContainers={this.fetchContainers} loading={this.loading}/>
+					<DockerContainersListHeader
+						fetchContainers={this.fetchContainers}
+						loading={this.loading}
+					/>
 					<DockerContainersListContent
 						error={this.error}
 						handlePageSizeChange={this.handlePageSizeChange}
@@ -229,7 +233,7 @@ const DockerContainersListPage = ReactWrapper(
 				</div>
 			);
 		}
-	}
+	},
 );
 
 export default DockerContainersListPage;

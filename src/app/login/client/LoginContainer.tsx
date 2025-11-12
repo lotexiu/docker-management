@@ -7,37 +7,35 @@ import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
 
 export const LoginContainer = ReactWrapper(
-  class LoginContainer extends ReactClientComponent {
-    isSignUp: boolean = false;
+	class LoginContainer extends ReactClientComponent {
+		isSignUp: boolean = false;
 
-    setupHooks(): void {
-      // Nenhum hook necessário no momento
-    }
-
-		onInit(): void {
-
+		setupHooks(): void {
+			// Nenhum hook necessário no momento
 		}
 
-    switchToSignUp() {
-      this.isSignUp = true;
-      this.updateView();
-    }
+		onInit(): void {}
 
-    switchToSignIn() {
-      this.isSignUp = false;
-      this.updateView();
-    }
+		switchToSignUp() {
+			this.isSignUp = true;
+			this.updateView();
+		}
 
-    render(): ReactNode {
-      return (
-        <div>
-          {this.isSignUp ? (
-            <SignUp onSwitchToSignIn={this.switchToSignIn} />
-          ) : (
-            <SignIn onSwitchToSignUp={this.switchToSignUp} />
-          )}
-        </div>
-      );
-    }
-  }
+		switchToSignIn() {
+			this.isSignUp = false;
+			this.updateView();
+		}
+
+		render(): ReactNode {
+			return (
+				<div>
+					{this.isSignUp ? (
+						<SignUp onSwitchToSignIn={this.switchToSignIn} />
+					) : (
+						<SignIn onSwitchToSignUp={this.switchToSignUp} />
+					)}
+				</div>
+			);
+		}
+	},
 );

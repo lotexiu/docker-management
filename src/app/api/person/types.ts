@@ -1,4 +1,4 @@
 import z from "zod";
 import { personSchema } from "./validation";
 
-export type Person = z.infer<typeof personSchema>
+export type Person = z.infer<typeof personSchema>;
