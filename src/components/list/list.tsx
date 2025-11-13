@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactElement, ReactNode } from "react";
-import { Table, TableHeader } from "../ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { ReactWrapper } from "@lotexiu/react/components/implementations";
 
 
@@ -10,7 +10,7 @@ type SelectMode = "single" | "multiple";
 
 type ListProps<T> = {
 	/* Column Settings */
-	columns?: any[],
+	columns: any[],
 	columnTemplate?: (item: T) => ReactNode,
 	sortColumnChange?: (column: any) => void,
 	sortColumn?: any,
@@ -37,12 +37,38 @@ type ListProps<T> = {
 export const List = ReactWrapper(
 	class List<T> extends ReactWrapper.Client<ListProps<T>> {
 		render(): ReactNode {
-			const {...props } = this.props;
+			const {columns, columnTemplate, ...props } = this.props;
 
 			return (
 				<Table {...props}>
 					<TableHeader>
+						{columns.map((column) => (
+							<TableRow key={column.id}>
+								<TableHead key={column.id}>
+									{
+										columnTemplate?.(column) ||
+										<div key={column.id}>{column.header}</div>
+									}
+								</TableHead>
+							</TableRow>
+						))}
 					</TableHeader>
+					<TableBody>
+						{props.list?.map((item) => (
+							<TableRow >
+								{columns.map((column) => (
+									<TableCell key={column.id}>
+										{
+											columnTemplate?.(item) ||
+											<div key={column.id}>
+												{item[column.name]}
+											</div>
+										}
+									</TableCell>
+								))}
+							</TableRow>
+						))}
+					</TableBody>
 				</Table>
 			);
 		}
