@@ -11,35 +11,6 @@ import { ReactWrapper } from "@lotexiu/react/components/implementations";
 type SortDirection = "asc" | "desc";
 type SelectMode = "single" | "multiple";
 
-class Testx {
-	id = 1
-}
-
-const BComp = ReactWrapper(
-	class D<T> extends ReactUI(Testx)<ListProps<T>> {
-		render(): ReactNode | Promise<ReactNode> {
-			throw new Error("Method not implemented.");
-
-			this.id
-		}
-	}
-)
-
-function Test() {
-	return (
-		<>
-			<BComp
-				list={['']}
-				rowTemplate={()=>{return <></>}}
-
-			>
-			</BComp>
-		</>
-	)
-}
-
-
-
 type ListProps<T> = {
 	/* Column Settings */
 	columns?: any[],
@@ -66,18 +37,17 @@ type ListProps<T> = {
 	loading?: boolean,
 }
 
-// export const List = ReactWrapper(
-// 	class List<T> extends ReactWrapper.Client<ListProps<T>> {
-// 		render(): ReactNode {
-// 			const { children, ...props } = this.props;
+export const List = ReactWrapper(
+	class List<T> extends ReactWrapper.Client<ListProps<T>> {
+		render(): ReactNode {
+			const {...props } = this.props;
 
-// 			return (
-// 				<Table {...props}>
-// 					<TableHeader>
-// 						{children}
-// 					</TableHeader>
-// 				</Table>
-// 			);
-// 		}
-// 	}
-// )
+			return (
+				<Table {...props}>
+					<TableHeader>
+					</TableHeader>
+				</Table>
+			);
+		}
+	}
+)
