@@ -8,7 +8,7 @@ interface DockerContainerCreateMessagesProps {
 }
 
 export const DockerContainerCreateMessages = ReactWrapper(
-	class DockerContainerCreateMessages extends ReactWrapper.ClientComponent<DockerContainerCreateMessagesProps> {
+	class DockerContainerCreateMessages extends ReactWrapper.Client<DockerContainerCreateMessagesProps> {
 		render(): ReactNode | Promise<ReactNode> {
 			const { error, successMessage } = this.props;
 

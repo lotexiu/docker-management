@@ -13,7 +13,7 @@ import { DockerContainersListContent } from "./client/content/Content";
 import { ApiResponse, ContainerData, PaginationData } from "./types";
 
 const DockerContainersListPage = ReactWrapper(
-	class DockerContainersListPage extends ReactWrapper.ClientComponent {
+	class DockerContainersListPage extends ReactWrapper.Client {
 		containers: ContainerData[] = [];
 		pagination: PaginationData = {
 			page: 1,

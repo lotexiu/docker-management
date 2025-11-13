@@ -8,7 +8,7 @@ interface DockerContainersListLoadingProps {
 }
 
 export const DockerContainersListLoading = ReactWrapper(
-	class DockerContainersListLoading extends ReactWrapper.ClientComponent<DockerContainersListLoadingProps> {
+	class DockerContainersListLoading extends ReactWrapper.Client<DockerContainersListLoadingProps> {
 		render(): ReactNode | Promise<ReactNode> {
 			const { loading } = this.props;
 

@@ -18,7 +18,7 @@ interface DockerContainerCreateEnvironmentProps {
 }
 
 export const DockerContainerCreateEnvironment = ReactWrapper(
-	class DockerContainerCreateEnvironment extends ReactWrapper.ClientComponent<DockerContainerCreateEnvironmentProps> {
+	class DockerContainerCreateEnvironment extends ReactWrapper.Client<DockerContainerCreateEnvironmentProps> {
 		render(): ReactNode | Promise<ReactNode> {
 			const { envVars, onAdd, onUpdate, onRemove } = this.props;
 

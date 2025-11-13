@@ -39,7 +39,7 @@ interface DockerContainersListTableProps {
 }
 
 export const DockerContainersListTable = ReactWrapper(
-	class DockerContainersListTable extends ReactWrapper.ClientComponent<DockerContainersListTableProps> {
+	class DockerContainersListTable extends ReactWrapper.Client<DockerContainersListTableProps> {
 		table: ReturnType<typeof useReactTable<ContainerData>> | null = null;
 
 		setupHooks(): void {

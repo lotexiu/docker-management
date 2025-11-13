@@ -73,7 +73,7 @@ interface DockerContainerCreateContentProps {
 }
 
 export const DockerContainerCreateContent = ReactWrapper(
-	class DockerContainerCreateContent extends ReactWrapper.ClientComponent<DockerContainerCreateContentProps> {
+	class DockerContainerCreateContent extends ReactWrapper.Client<DockerContainerCreateContentProps> {
 		render(): ReactNode | Promise<ReactNode> {
 			return (
 				<Card className="mt-6">

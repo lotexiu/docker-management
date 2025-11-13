@@ -21,7 +21,7 @@ type SignInProps = {
 };
 
 export const SignIn = ReactWrapper(
-	class SignIn extends ReactWrapper.ClientComponent<SignInProps> {
+	class SignIn extends ReactWrapper.Client<SignInProps> {
 		form: any;
 		serverMessage: string | null = null;
 

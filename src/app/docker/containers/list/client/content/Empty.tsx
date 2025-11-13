@@ -9,7 +9,7 @@ interface DockerContainersListEmptyProps {
 }
 
 export const DockerContainersListEmpty = ReactWrapper(
-	class DockerContainersListEmpty extends ReactWrapper.ClientComponent<DockerContainersListEmptyProps> {
+	class DockerContainersListEmpty extends ReactWrapper.Client<DockerContainersListEmptyProps> {
 		render(): ReactNode | Promise<ReactNode> {
 			const { loading, containers } = this.props;
 

@@ -7,7 +7,7 @@ interface DockerContainersListErrorProps {
 }
 
 export const DockerContainersListError = ReactWrapper(
-	class DockerContainersListError extends ReactWrapper.ClientComponent<DockerContainersListErrorProps> {
+	class DockerContainersListError extends ReactWrapper.Client<DockerContainersListErrorProps> {
 		render(): ReactNode | Promise<ReactNode> {
 			const { error } = this.props;
 

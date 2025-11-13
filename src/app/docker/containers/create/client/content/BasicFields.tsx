@@ -15,7 +15,7 @@ interface DockerContainerCreateBasicFieldsProps {
 }
 
 export const DockerContainerCreateBasicFields = ReactWrapper(
-	class DockerContainerCreateBasicFields extends ReactWrapper.ClientComponent<DockerContainerCreateBasicFieldsProps> {
+	class DockerContainerCreateBasicFields extends ReactWrapper.Client<DockerContainerCreateBasicFieldsProps> {
 		render(): ReactNode | Promise<ReactNode> {
 			const { name, image, cmd, workingDir, user, tty, onFieldChange } =
 				this.props;

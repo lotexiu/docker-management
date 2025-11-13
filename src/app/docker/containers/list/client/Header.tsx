@@ -11,7 +11,7 @@ interface DockerContainersListHeaderProps {
 }
 
 export const DockerContainersListHeader = ReactWrapper(
-	class DockerContainersListHeader extends ReactWrapper.ServerComponent<DockerContainersListHeaderProps> {
+	class DockerContainersListHeader extends ReactWrapper.Server<DockerContainersListHeaderProps> {
 		render(): ReactNode | Promise<ReactNode> {
 			const { fetchContainers, loading } = this.props;
 

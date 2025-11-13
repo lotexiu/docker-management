@@ -21,7 +21,7 @@ interface DockerContainerCreatePortsProps {
 }
 
 export const DockerContainerCreatePorts = ReactWrapper(
-	class DockerContainerCreatePorts extends ReactWrapper.ClientComponent<DockerContainerCreatePortsProps> {
+	class DockerContainerCreatePorts extends ReactWrapper.Client<DockerContainerCreatePortsProps> {
 		render(): ReactNode | Promise<ReactNode> {
 			const { ports, onAdd, onUpdate, onRemove } = this.props;
 

@@ -1,13 +1,12 @@
 "use client";
 
 import { ReactWrapper } from "@lotexiu/react/components/implementations";
-import { ReactClientComponent } from "@lotexiu/react/components/ReactComponent/ReactClientComponent";
 import { ReactNode } from "react";
 import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
 
 export const LoginContainer = ReactWrapper(
-	class LoginContainer extends ReactClientComponent {
+	class LoginContainer extends ReactWrapper.Client {
 		isSignUp: boolean = false;
 
 		setupHooks(): void {

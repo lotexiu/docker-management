@@ -2,10 +2,9 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 import { ReactWrapper } from "@lotexiu/react/components/implementations";
-import { Property } from "@lotexiu/typescript/natives/object/proxy/types";
 
 export const Input = ReactWrapper(
-	class Input extends ReactWrapper.ClientComponent<
+	class Input extends ReactWrapper.Client<
 		React.ComponentProps<"input">
 	> {
 		render(): React.ReactNode {

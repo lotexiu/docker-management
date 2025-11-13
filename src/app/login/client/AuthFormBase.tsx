@@ -45,7 +45,7 @@ type AuthFormBaseProps = {
 };
 
 export const AuthFormBase = ReactWrapper(
-	class AuthFormBase extends ReactWrapper.ClientComponent<AuthFormBaseProps> {
+	class AuthFormBase extends ReactWrapper.Client<AuthFormBaseProps> {
 		render(): React.ReactNode {
 			const {
 				title,

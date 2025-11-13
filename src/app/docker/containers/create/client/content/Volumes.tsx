@@ -21,7 +21,7 @@ interface DockerContainerCreateVolumesProps {
 }
 
 export const DockerContainerCreateVolumes = ReactWrapper(
-	class DockerContainerCreateVolumes extends ReactWrapper.ClientComponent<DockerContainerCreateVolumesProps> {
+	class DockerContainerCreateVolumes extends ReactWrapper.Client<DockerContainerCreateVolumesProps> {
 		render(): ReactNode | Promise<ReactNode> {
 			const { volumes, onAdd, onUpdate, onRemove } = this.props;
 

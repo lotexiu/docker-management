@@ -16,7 +16,7 @@ interface DockerContainersListControllersProps {
 }
 
 export const DockerContainersListControllers = ReactWrapper(
-	class DockerContainersListControllers extends ReactWrapper.ClientComponent<DockerContainersListControllersProps> {
+	class DockerContainersListControllers extends ReactWrapper.Client<DockerContainersListControllersProps> {
 		render(): ReactNode | Promise<ReactNode> {
 			const { pagination, handlePageSizeChange } = this.props;
 

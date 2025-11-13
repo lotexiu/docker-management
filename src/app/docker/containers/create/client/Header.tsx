@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export const DockerContainerCreateHeader = ReactWrapper(
-	class DockerContainerCreateHeader extends ReactWrapper.ServerComponent {
+	class DockerContainerCreateHeader extends ReactWrapper.Client {
 		render(): ReactNode | Promise<ReactNode> {
 			return (
 				<Card>

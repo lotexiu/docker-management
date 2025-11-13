@@ -2,7 +2,7 @@ import { Label } from "@/components/ui/label";
 import { ReactWrapper } from "@lotexiu/react/components/implementations";
 
 const DebugPage = ReactWrapper(
-	class DebugPage extends ReactWrapper.ServerComponent {
+	class DebugPage extends ReactWrapper.Server {
 		async render(): Promise<React.ReactNode> {
 			// Busca os dados via fetch (força re-fetch a cada acesso)
 			const response = await fetch(

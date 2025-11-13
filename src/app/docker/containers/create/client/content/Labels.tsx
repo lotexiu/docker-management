@@ -14,7 +14,7 @@ interface DockerContainerCreateLabelsProps {
 }
 
 export const DockerContainerCreateLabels = ReactWrapper(
-	class DockerContainerCreateLabels extends ReactWrapper.ClientComponent<DockerContainerCreateLabelsProps> {
+	class DockerContainerCreateLabels extends ReactWrapper.Client<DockerContainerCreateLabelsProps> {
 		render(): ReactNode | Promise<ReactNode> {
 			const { labels, onAdd, onUpdate, onRemove } = this.props;
 

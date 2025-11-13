@@ -19,7 +19,7 @@ interface DockerContainerCreateAdvancedProps {
 }
 
 export const DockerContainerCreateAdvanced = ReactWrapper(
-	class DockerContainerCreateAdvanced extends ReactWrapper.ClientComponent<DockerContainerCreateAdvancedProps> {
+	class DockerContainerCreateAdvanced extends ReactWrapper.Client<DockerContainerCreateAdvancedProps> {
 		render(): ReactNode | Promise<ReactNode> {
 			const { memory, cpuShares, restartPolicy, networkMode, onFieldChange } =
 				this.props;

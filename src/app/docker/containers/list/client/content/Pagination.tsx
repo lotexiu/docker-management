@@ -21,7 +21,7 @@ interface DockerContainersListPaginationProps {
 }
 
 export const DockerContainersListPagination = ReactWrapper(
-	class DockerContainersListPagination extends ReactWrapper.ClientComponent<DockerContainersListPaginationProps> {
+	class DockerContainersListPagination extends ReactWrapper.Client<DockerContainersListPaginationProps> {
 		render(): ReactNode | Promise<ReactNode> {
 			const {
 				pagination,

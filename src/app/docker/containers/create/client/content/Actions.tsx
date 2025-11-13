@@ -10,7 +10,7 @@ interface DockerContainerCreateActionsProps {
 }
 
 export const DockerContainerCreateActions = ReactWrapper(
-	class DockerContainerCreateActions extends ReactWrapper.ClientComponent<DockerContainerCreateActionsProps> {
+	class DockerContainerCreateActions extends ReactWrapper.Client<DockerContainerCreateActionsProps> {
 		render(): ReactNode | Promise<ReactNode> {
 			const { loading, onReset } = this.props;
 

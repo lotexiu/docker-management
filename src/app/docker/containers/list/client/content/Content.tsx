@@ -26,7 +26,7 @@ interface DockerContainersListContentProps {
 }
 
 export const DockerContainersListContent = ReactWrapper(
-	class DockerContainersListContent extends ReactWrapper.ClientComponent<DockerContainersListContentProps> {
+	class DockerContainersListContent extends ReactWrapper.Client<DockerContainersListContentProps> {
 		render(): ReactNode | Promise<ReactNode> {
 			const {
 				error,

@@ -16,7 +16,7 @@ import {
 import { useRouter } from "next/navigation";
 
 const DockerContainerCreatePage = ReactWrapper(
-	class DockerContainerCreatePage extends ReactWrapper.ClientComponent {
+	class DockerContainerCreatePage extends ReactWrapper.Client {
 		// Form state
 		name: string = "";
 		image: string = "";

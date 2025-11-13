@@ -35,7 +35,7 @@ type SignUpProps = {
 };
 
 export const SignUp = ReactWrapper(
-	class SignUp extends ReactWrapper.ClientComponent<SignUpProps> {
+	class SignUp extends ReactWrapper.Client<SignUpProps> {
 		form: any;
 		serverMessage: string | null = null;
 
