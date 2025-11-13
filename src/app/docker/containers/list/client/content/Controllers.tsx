@@ -1,4 +1,4 @@
-import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactWrapper } from "../../../../../../../../../packages/react/dist/components/implementations";
 import { ReactNode } from "react";
 import "@lotexiu/typescript/global";
 import {

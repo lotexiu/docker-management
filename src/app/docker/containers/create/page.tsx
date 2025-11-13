@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactWrapper } from "../../../../../../../packages/react/dist/components/implementations";
 import { ReactNode } from "react";
 import "@lotexiu/typescript/global";
 import { DockerContainerCreateHeader } from "./client/Header";
@@ -12,32 +12,14 @@ import {
 	EnvironmentVariable,
 	VolumeMount,
 	LabelEntry,
+	BasicFieldsData,
+	AdvancedFieldsData,
 } from "./types";
 import { useRouter } from "next/navigation";
 
 const DockerContainerCreatePage = ReactWrapper(
 	class DockerContainerCreatePage extends ReactWrapper.Client {
-		// Form state
-		name: string = "";
-		image: string = "";
-		cmd: string = "";
-		workingDir: string = "";
-		user: string = "";
-		tty: boolean = false;
-
-		// Advanced options
-		memory: string = "";
-		cpuShares: string = "";
-		restartPolicy: "" | "always" | "unless-stopped" | "on-failure" = "";
-		networkMode: string = "";
-
-		// Arrays for dynamic fields
-		ports: PortMapping[] = [];
-		envVars: EnvironmentVariable[] = [];
-		volumes: VolumeMount[] = [];
-		labels: LabelEntry[] = [];
-
-		// UI state
+		// Apenas estado de UI global
 		loading: boolean = false;
 		error: string | null = null;
 		successMessage: string | null = null;
@@ -48,90 +30,129 @@ const DockerContainerCreatePage = ReactWrapper(
 			this.router = useRouter();
 		}
 
-		// Port methods
-		addPort() {
-			this.ports.push({ containerPort: "", hostPort: "", protocol: "tcp" });
-			this.updateView();
-		}
+		// Lógica de construção do payload
+		buildFormData(data: {
+			basic: BasicFieldsData;
+			advanced: AdvancedFieldsData;
+			ports: PortMapping[];
+			envVars: EnvironmentVariable[];
+			volumes: VolumeMount[];
+			labels: LabelEntry[];
+		}): CreateContainerFormData {
+			const formData: CreateContainerFormData = {
+				image: data.basic.image.trim(),
+			};
 
-		updatePort(index: number, field: keyof PortMapping, value: string) {
-			if (this.ports[index]) {
-				this.ports[index][field] = value as any;
-				this.updateView();
+			// Basic fields
+			if (data.basic.name.trim()) formData.name = data.basic.name.trim();
+			if (data.basic.cmd.trim())
+				formData.cmd = data.basic.cmd.split(" ").filter(Boolean);
+			if (data.basic.workingDir.trim())
+				formData.workingDir = data.basic.workingDir.trim();
+			if (data.basic.user.trim()) formData.user = data.basic.user.trim();
+			formData.tty = data.basic.tty;
+
+			// Environment variables
+			if (data.envVars.length > 0) {
+				formData.env = data.envVars
+					.filter((env) => env.key.trim() && env.value.trim())
+					.map((env) => `${env.key}=${env.value}`);
 			}
-		}
 
-		removePort(index: number) {
-			this.ports.splice(index, 1);
-			this.updateView();
-		}
+			// Ports
+			if (data.ports.length > 0) {
+				const exposedPorts: Record<string, Record<string, never>> = {};
+				const portBindings: Record<string, Array<{ hostPort?: string }>> = {};
 
-		// Environment variable methods
-		addEnvVar() {
-			this.envVars.push({ key: "", value: "" });
-			this.updateView();
-		}
+				data.ports.forEach((port) => {
+					if (port.containerPort.trim()) {
+						const portKey = `${port.containerPort}/${port.protocol}`;
+						exposedPorts[portKey] = {};
 
-		updateEnvVar(
-			index: number,
-			field: keyof EnvironmentVariable,
-			value: string,
-		) {
-			if (this.envVars[index]) {
-				this.envVars[index][field] = value;
-				this.updateView();
+						if (port.hostPort.trim()) {
+							portBindings[portKey] = [{ hostPort: port.hostPort }];
+						}
+					}
+				});
+
+				if (Object.keys(exposedPorts).length > 0) {
+					formData.exposedPorts = exposedPorts;
+					if (!formData.hostConfig) formData.hostConfig = {};
+					formData.hostConfig.portBindings = portBindings;
+				}
 			}
-		}
 
-		removeEnvVar(index: number) {
-			this.envVars.splice(index, 1);
-			this.updateView();
-		}
+			// Volumes
+			if (data.volumes.length > 0) {
+				const binds = data.volumes
+					.filter((v) => v.hostPath.trim() && v.containerPath.trim())
+					.map((v) => `${v.hostPath}:${v.containerPath}:${v.mode || "rw"}`);
 
-		// Volume methods
-		addVolume() {
-			this.volumes.push({ hostPath: "", containerPath: "", mode: "rw" });
-			this.updateView();
-		}
-
-		updateVolume(index: number, field: keyof VolumeMount, value: string) {
-			if (this.volumes[index]) {
-				this.volumes[index][field] = value as any;
-				this.updateView();
+				if (binds.length > 0) {
+					if (!formData.hostConfig) formData.hostConfig = {};
+					formData.hostConfig.binds = binds;
+				}
 			}
-		}
 
-		removeVolume(index: number) {
-			this.volumes.splice(index, 1);
-			this.updateView();
-		}
-
-		// Label methods
-		addLabel() {
-			this.labels.push({ key: "", value: "" });
-			this.updateView();
-		}
-
-		updateLabel(index: number, field: keyof LabelEntry, value: string) {
-			if (this.labels[index]) {
-				this.labels[index][field] = value;
-				this.updateView();
+			// Labels
+			if (data.labels.length > 0) {
+				const labelsObj: Record<string, string> = {};
+				data.labels.forEach((label) => {
+					if (label.key.trim() && label.value.trim()) {
+						labelsObj[label.key] = label.value;
+					}
+				});
+				if (Object.keys(labelsObj).length > 0) {
+					formData.labels = labelsObj;
+				}
 			}
+
+			// Advanced options
+			if (
+				data.advanced.memory.trim() ||
+				data.advanced.cpuShares.trim() ||
+				data.advanced.restartPolicy ||
+				data.advanced.networkMode.trim()
+			) {
+				if (!formData.hostConfig) formData.hostConfig = {};
+
+				if (data.advanced.memory.trim()) {
+					formData.hostConfig.memory = parseInt(data.advanced.memory, 10);
+				}
+				if (data.advanced.cpuShares.trim()) {
+					formData.hostConfig.cpuShares = parseInt(
+						data.advanced.cpuShares,
+						10,
+					);
+				}
+				if (data.advanced.restartPolicy) {
+					formData.hostConfig.restartPolicy = {
+						name: data.advanced.restartPolicy,
+					};
+				}
+				if (data.advanced.networkMode.trim()) {
+					formData.hostConfig.networkMode = data.advanced.networkMode;
+				}
+			}
+
+			return formData;
 		}
 
-		removeLabel(index: number) {
-			this.labels.splice(index, 1);
-			this.updateView();
-		}
-
-		// Form submission
-		async handleSubmit() {
+		// Handler de submit
+		async handleSubmit(data: {
+			basic: BasicFieldsData;
+			advanced: AdvancedFieldsData;
+			ports: PortMapping[];
+			envVars: EnvironmentVariable[];
+			volumes: VolumeMount[];
+			labels: LabelEntry[];
+		}) {
 			// Reset messages
 			this.error = null;
 			this.successMessage = null;
 
 			// Validate
-			if (!this.image.trim()) {
+			if (!data.basic.image.trim()) {
 				this.error = "Imagem é obrigatória";
 				this.updateView();
 				return;
@@ -141,95 +162,7 @@ const DockerContainerCreatePage = ReactWrapper(
 			this.updateView();
 
 			try {
-				// Build form data
-				const formData: CreateContainerFormData = {
-					image: this.image.trim(),
-				};
-
-				if (this.name.trim()) formData.name = this.name.trim();
-				if (this.cmd.trim()) formData.cmd = this.cmd.split(" ").filter(Boolean);
-				if (this.workingDir.trim())
-					formData.workingDir = this.workingDir.trim();
-				if (this.user.trim()) formData.user = this.user.trim();
-				formData.tty = this.tty;
-
-				// Environment variables
-				if (this.envVars.length > 0) {
-					formData.env = this.envVars
-						.filter((env) => env.key.trim() && env.value.trim())
-						.map((env) => `${env.key}=${env.value}`);
-				}
-
-				// Ports
-				if (this.ports.length > 0) {
-					const exposedPorts: Record<string, Record<string, never>> = {};
-					const portBindings: Record<string, Array<{ hostPort?: string }>> = {};
-
-					this.ports.forEach((port) => {
-						if (port.containerPort.trim()) {
-							const portKey = `${port.containerPort}/${port.protocol}`;
-							exposedPorts[portKey] = {};
-
-							if (port.hostPort.trim()) {
-								portBindings[portKey] = [{ hostPort: port.hostPort }];
-							}
-						}
-					});
-
-					if (Object.keys(exposedPorts).length > 0) {
-						formData.exposedPorts = exposedPorts;
-						if (!formData.hostConfig) formData.hostConfig = {};
-						formData.hostConfig.portBindings = portBindings;
-					}
-				}
-
-				// Volumes
-				if (this.volumes.length > 0) {
-					const binds = this.volumes
-						.filter((v) => v.hostPath.trim() && v.containerPath.trim())
-						.map((v) => `${v.hostPath}:${v.containerPath}:${v.mode || "rw"}`);
-
-					if (binds.length > 0) {
-						if (!formData.hostConfig) formData.hostConfig = {};
-						formData.hostConfig.binds = binds;
-					}
-				}
-
-				// Labels
-				if (this.labels.length > 0) {
-					const labelsObj: Record<string, string> = {};
-					this.labels.forEach((label) => {
-						if (label.key.trim() && label.value.trim()) {
-							labelsObj[label.key] = label.value;
-						}
-					});
-					if (Object.keys(labelsObj).length > 0) {
-						formData.labels = labelsObj;
-					}
-				}
-
-				// Host config
-				if (
-					this.memory.trim() ||
-					this.cpuShares.trim() ||
-					this.restartPolicy ||
-					this.networkMode.trim()
-				) {
-					if (!formData.hostConfig) formData.hostConfig = {};
-
-					if (this.memory.trim()) {
-						formData.hostConfig.memory = parseInt(this.memory, 10);
-					}
-					if (this.cpuShares.trim()) {
-						formData.hostConfig.cpuShares = parseInt(this.cpuShares, 10);
-					}
-					if (this.restartPolicy) {
-						formData.hostConfig.restartPolicy = { name: this.restartPolicy };
-					}
-					if (this.networkMode.trim()) {
-						formData.hostConfig.networkMode = this.networkMode;
-					}
-				}
+				const formData = this.buildFormData(data);
 
 				// Make API call
 				const response = await fetch("/api/docker/containers", {
@@ -263,21 +196,7 @@ const DockerContainerCreatePage = ReactWrapper(
 			}
 		}
 
-		resetForm() {
-			this.name = "";
-			this.image = "";
-			this.cmd = "";
-			this.workingDir = "";
-			this.user = "";
-			this.tty = false;
-			this.memory = "";
-			this.cpuShares = "";
-			this.restartPolicy = "";
-			this.networkMode = "";
-			this.ports = [];
-			this.envVars = [];
-			this.volumes = [];
-			this.labels = [];
+		handleReset() {
 			this.error = null;
 			this.successMessage = null;
 			this.updateView();
@@ -288,52 +207,11 @@ const DockerContainerCreatePage = ReactWrapper(
 				<div className="container mx-auto py-8 px-4 max-w-4xl">
 					<DockerContainerCreateHeader />
 					<DockerContainerCreateContent
-						// Basic fields
-						name={this.name}
-						image={this.image}
-						cmd={this.cmd}
-						workingDir={this.workingDir}
-						user={this.user}
-						tty={this.tty}
-						// Advanced fields
-						memory={this.memory}
-						cpuShares={this.cpuShares}
-						restartPolicy={this.restartPolicy}
-						networkMode={this.networkMode}
-						// Arrays
-						ports={this.ports}
-						envVars={this.envVars}
-						volumes={this.volumes}
-						labels={this.labels}
-						// Handlers
-						onFieldChange={(field, value) => {
-							(this as any)[field] = value;
-							this.updateView();
-						}}
-						onAddPort={() => this.addPort()}
-						onUpdatePort={(idx, field, val) => this.updatePort(idx, field, val)}
-						onRemovePort={(idx) => this.removePort(idx)}
-						onAddEnvVar={() => this.addEnvVar()}
-						onUpdateEnvVar={(idx, field, val) =>
-							this.updateEnvVar(idx, field, val)
-						}
-						onRemoveEnvVar={(idx) => this.removeEnvVar(idx)}
-						onAddVolume={() => this.addVolume()}
-						onUpdateVolume={(idx, field, val) =>
-							this.updateVolume(idx, field, val)
-						}
-						onRemoveVolume={(idx) => this.removeVolume(idx)}
-						onAddLabel={() => this.addLabel()}
-						onUpdateLabel={(idx, field, val) =>
-							this.updateLabel(idx, field, val)
-						}
-						onRemoveLabel={(idx) => this.removeLabel(idx)}
-						onSubmit={() => this.handleSubmit()}
-						onReset={() => this.resetForm()}
-						// UI state
-						loading={this.loading}
 						error={this.error}
 						successMessage={this.successMessage}
+						loading={this.loading}
+						onSubmit={this.handleSubmit}
+						onReset={this.handleReset}
 					/>
 				</div>
 			);

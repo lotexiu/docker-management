@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactWrapper } from "../../../../../../../../../packages/react/dist/components/implementations";
 import { ReactNode } from "react";
 import { DockerContainerCreateMessages } from "./Messages";
 import { DockerContainerCreateBasicFields } from "./BasicFields";
@@ -14,67 +14,78 @@ import {
 	EnvironmentVariable,
 	VolumeMount,
 	LabelEntry,
+	BasicFieldsData,
+	AdvancedFieldsData,
+	FormDataProvider,
 } from "../../types";
 
 interface DockerContainerCreateContentProps {
-	// Basic fields
-	name: string;
-	image: string;
-	cmd: string;
-	workingDir: string;
-	user: string;
-	tty: boolean;
-	// Advanced fields
-	memory: string;
-	cpuShares: string;
-	restartPolicy: "" | "always" | "unless-stopped" | "on-failure";
-	networkMode: string;
-	// Arrays
-	ports: PortMapping[];
-	envVars: EnvironmentVariable[];
-	volumes: VolumeMount[];
-	labels: LabelEntry[];
-	// Handlers
-	onFieldChange: (field: string, value: any) => void;
-	onAddPort: () => void;
-	onUpdatePort: (
-		index: number,
-		field: keyof PortMapping,
-		value: string,
-	) => void;
-	onRemovePort: (index: number) => void;
-	onAddEnvVar: () => void;
-	onUpdateEnvVar: (
-		index: number,
-		field: keyof EnvironmentVariable,
-		value: string,
-	) => void;
-	onRemoveEnvVar: (index: number) => void;
-	onAddVolume: () => void;
-	onUpdateVolume: (
-		index: number,
-		field: keyof VolumeMount,
-		value: string,
-	) => void;
-	onRemoveVolume: (index: number) => void;
-	onAddLabel: () => void;
-	onUpdateLabel: (
-		index: number,
-		field: keyof LabelEntry,
-		value: string,
-	) => void;
-	onRemoveLabel: (index: number) => void;
-	onSubmit: () => void;
-	onReset: () => void;
-	// UI state
-	loading: boolean;
 	error: string | null;
 	successMessage: string | null;
+	loading: boolean;
+	onSubmit: (data: {
+		basic: BasicFieldsData;
+		advanced: AdvancedFieldsData;
+		ports: PortMapping[];
+		envVars: EnvironmentVariable[];
+		volumes: VolumeMount[];
+		labels: LabelEntry[];
+	}) => void;
+	onReset: () => void;
 }
 
 export const DockerContainerCreateContent = ReactWrapper(
 	class DockerContainerCreateContent extends ReactWrapper.Client<DockerContainerCreateContentProps> {
-		render(): ReactNode | Promise<ReactNode> {
+		// Instâncias dos componentes filhos
+		basicFieldsInstance: FormDataProvider<BasicFieldsData> | null = null;
+		advancedInstance: FormDataProvider<AdvancedFieldsData> | null = null;
+		portsInstance: FormDataProvider<PortMapping[]> | null = null;
+		envVarsInstance: FormDataProvider<EnvironmentVariable[]> | null = null;
+		volumesInstance: FormDataProvider<VolumeMount[]> | null = null;
+		labelsInstance: FormDataProvider<LabelEntry[]> | null = null;
+
+		handleSubmit(e: React.FormEvent) {
+			e.preventDefault();
+
+			// Coleta dados de todos os componentes filhos
+			const data = {
+				basic: this.basicFieldsInstance?.getData() || {
+					name: "",
+					image: "",
+					cmd: "",
+					workingDir: "",
+					user: "",
+					tty: false,
+				},
+				advanced: this.advancedInstance?.getData() || {
+					memory: "",
+					cpuShares: "",
+					restartPolicy: "" as const,
+					networkMode: "",
+				},
+				ports: this.portsInstance?.getData() || [],
+				envVars: this.envVarsInstance?.getData() || [],
+				volumes: this.volumesInstance?.getData() || [],
+				labels: this.labelsInstance?.getData() || [],
+			};
+
+			this.props.onSubmit(data);
+		}
+
+		handleReset() {
+			// Reseta todos os componentes filhos
+			this.basicFieldsInstance?.reset();
+			this.advancedInstance?.reset();
+			this.portsInstance?.reset();
+			this.envVarsInstance?.reset();
+			this.volumesInstance?.reset();
+			this.labelsInstance?.reset();
+
+			// Notifica o pai
+			this.props.onReset();
+		}
+
+		render(): ReactNode {
 			return (
 				<Card className="mt-6">
 					<CardContent>
@@ -83,62 +94,46 @@ export const DockerContainerCreateContent = ReactWrapper(
 							successMessage={this.props.successMessage}
 						/>
 
-						<form
-							onSubmit={(e) => {
-								e.preventDefault();
-								this.props.onSubmit();
-							}}
-							className="space-y-6"
-						>
+						<form onSubmit={this.handleSubmit} className="space-y-6">
 							<DockerContainerCreateBasicFields
-								name={this.props.name}
-								image={this.props.image}
-								cmd={this.props.cmd}
-								workingDir={this.props.workingDir}
-								user={this.props.user}
-								tty={this.props.tty}
-								onFieldChange={this.props.onFieldChange}
+								onInstanceReady={(instance) => {
+									this.basicFieldsInstance = instance;
+								}}
 							/>
 
 							<DockerContainerCreatePorts
-								ports={this.props.ports}
-								onAdd={this.props.onAddPort}
-								onUpdate={this.props.onUpdatePort}
-								onRemove={this.props.onRemovePort}
+								onInstanceReady={(instance) => {
+									this.portsInstance = instance;
+								}}
 							/>
 
 							<DockerContainerCreateEnvironment
-								envVars={this.props.envVars}
-								onAdd={this.props.onAddEnvVar}
-								onUpdate={this.props.onUpdateEnvVar}
-								onRemove={this.props.onRemoveEnvVar}
+								onInstanceReady={(instance) => {
+									this.envVarsInstance = instance;
+								}}
 							/>
 
 							<DockerContainerCreateVolumes
-								volumes={this.props.volumes}
-								onAdd={this.props.onAddVolume}
-								onUpdate={this.props.onUpdateVolume}
-								onRemove={this.props.onRemoveVolume}
+								onInstanceReady={(instance) => {
+									this.volumesInstance = instance;
+								}}
 							/>
 
 							<DockerContainerCreateLabels
-								labels={this.props.labels}
-								onAdd={this.props.onAddLabel}
-								onUpdate={this.props.onUpdateLabel}
-								onRemove={this.props.onRemoveLabel}
+								onInstanceReady={(instance) => {
+									this.labelsInstance = instance;
+								}}
 							/>
 
 							<DockerContainerCreateAdvanced
-								memory={this.props.memory}
-								cpuShares={this.props.cpuShares}
-								restartPolicy={this.props.restartPolicy}
-								networkMode={this.props.networkMode}
-								onFieldChange={this.props.onFieldChange}
+								onInstanceReady={(instance) => {
+									this.advancedInstance = instance;
+								}}
 							/>
 
 							<DockerContainerCreateActions
 								loading={this.props.loading}
-								onReset={this.props.onReset}
+								onReset={this.handleReset}
 							/>
 						</form>
 					</CardContent>

@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactWrapper } from "../../../../../packages/react/dist/components/implementations";
 
 export const Input = ReactWrapper(
 	class Input extends ReactWrapper.Client<

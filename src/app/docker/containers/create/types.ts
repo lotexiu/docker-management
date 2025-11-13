@@ -53,3 +53,25 @@ export interface LabelEntry {
 	key: string;
 	value: string;
 }
+
+// Interface para componentes que expõem seus dados
+export interface FormDataProvider<T> {
+	getData(): T;
+	reset(): void;
+}
+
+export interface BasicFieldsData {
+	name: string;
+	image: string;
+	cmd: string;
+	workingDir: string;
+	user: string;
+	tty: boolean;
+}
+
+export interface AdvancedFieldsData {
+	memory: string;
+	cpuShares: string;
+	restartPolicy: "" | "always" | "unless-stopped" | "on-failure";
+	networkMode: string;
+}

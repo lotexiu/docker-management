@@ -1,4 +1,4 @@
-import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactWrapper } from "../../../../../../../../../packages/react/dist/components/implementations";
 import { ReactNode } from "react";
 import { AlertCircleIcon, CheckCircleIcon } from "lucide-react";
 
@@ -9,7 +9,7 @@ interface DockerContainerCreateMessagesProps {
 
 export const DockerContainerCreateMessages = ReactWrapper(
 	class DockerContainerCreateMessages extends ReactWrapper.Client<DockerContainerCreateMessagesProps> {
-		render(): ReactNode | Promise<ReactNode> {
+		render(): ReactNode {
 			const { error, successMessage } = this.props;
 
 			return (

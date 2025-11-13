@@ -1,4 +1,4 @@
-import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactWrapper } from "../../../../../../../../../packages/react/dist/components/implementations";
 import { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
@@ -11,7 +11,7 @@ interface DockerContainerCreateActionsProps {
 
 export const DockerContainerCreateActions = ReactWrapper(
 	class DockerContainerCreateActions extends ReactWrapper.Client<DockerContainerCreateActionsProps> {
-		render(): ReactNode | Promise<ReactNode> {
+		render(): ReactNode {
 			const { loading, onReset } = this.props;
 
 			return (

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactWrapper } from "../../../../../../packages/react/dist/components/implementations";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";

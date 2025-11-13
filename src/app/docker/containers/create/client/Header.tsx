@@ -4,7 +4,7 @@ import {
 	CardTitle,
 	CardDescription,
 } from "@/components/ui/card";
-import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactWrapper } from "../../../../../../../../packages/react/dist/components/implementations";
 import { PlusCircleIcon, ArrowLeftIcon } from "lucide-react";
 import { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ import Link from "next/link";
 
 export const DockerContainerCreateHeader = ReactWrapper(
 	class DockerContainerCreateHeader extends ReactWrapper.Client {
-		render(): ReactNode | Promise<ReactNode> {
+		render(): ReactNode {
 			return (
 				<Card>
 					<CardHeader>

@@ -1,5 +1,5 @@
 import { Label } from "@/components/ui/label";
-import { ReactWrapper } from "@lotexiu/react/components/implementations";
+import { ReactWrapper } from "../../../../../packages/react/dist/components/implementations";
 
 const DebugPage = ReactWrapper(
 	class DebugPage extends ReactWrapper.Server {
