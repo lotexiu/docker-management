@@ -1,5 +1,5 @@
 import { CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { ReactWrapper } from "../../../../../../../../packages/react/dist/components/implementations";
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
 import { Container, RefreshCwIcon, PlusCircleIcon } from "lucide-react";
 import { ReactNode } from "react";
 import { Button } from "@/components/ui/button";

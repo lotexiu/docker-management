@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { ReactWrapper } from "../../../../../../../../../packages/react/dist/components/implementations";
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
 import { ReactNode } from "react";
 import { DockerContainerCreateMessages } from "./Messages";
 import { DockerContainerCreateBasicFields } from "./BasicFields";

@@ -1,4 +1,4 @@
-import { ReactWrapper } from "../../../../../../../../../packages/react/dist/components/implementations";
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
 import { ReactNode } from "react";
 import { ContainerData } from "../../types";
 import { Container } from "lucide-react";

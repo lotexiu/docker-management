@@ -1,10 +1,7 @@
 "use client";
 
-import { Component, ReactElement, ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 import { Table, TableHeader } from "../ui/table";
-import { TInstanceType } from "@lotexiu/typescript/natives/function/generic/types";
-import { ReactUI, ReactUIInst } from "@lotexiu/react/components/ReactUIComponent/ReactUI";
-import { TClazz } from "@lotexiu/typescript/natives/class/generic/types";
 import { ReactWrapper } from "@lotexiu/react/components/implementations";
 
 

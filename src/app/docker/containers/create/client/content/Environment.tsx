@@ -1,4 +1,4 @@
-import { ReactWrapper } from "../../../../../../../../../packages/react/dist/components/implementations";
+import { ReactWrapper } from "@lotexiu/react/components/implementations";
 import { ReactNode } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
