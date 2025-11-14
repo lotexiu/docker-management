@@ -7,6 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Lock, Mail } from "lucide-react";
 import { AuthFormBase, FormFieldConfig } from "./AuthFormBase";
+import { useRouter } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 // Schema de validação com Zod
 const signInSchema = z.object({
@@ -24,12 +26,14 @@ export const SignIn = ReactWrapper(
 	class SignIn extends ReactWrapper.Client<SignInProps> {
 		form: any;
 		serverMessage: string | null = null;
+		router!: AppRouterInstance;
 
 		onInit(): void {
-			console.log("SignIn initialized");
+
 		}
 
 		setupHooks(): void {
+			this.router = useRouter();
 			this.form = useForm<SignInFormValues>({
 				resolver: zodResolver(signInSchema),
 				defaultValues: {
@@ -56,6 +60,7 @@ export const SignIn = ReactWrapper(
 
 				if (response.ok) {
 					this.serverMessage = data.message || "Login bem-sucedido";
+					this.router.push("/docker/containers/list");
 				} else {
 					this.serverMessage = data.message || "Credenciais inválidas";
 				}
