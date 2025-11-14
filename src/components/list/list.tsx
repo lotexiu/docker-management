@@ -1,43 +1,25 @@
 "use client";
 
-import { ReactElement, ReactNode } from "react";
+import { ReactNode } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { ReactWrapper } from "@lotexiu/react/components/implementations";
-
-
-type SortDirection = "asc" | "desc";
-type SelectMode = "single" | "multiple";
-
-type ListProps<T> = {
-	/* Column Settings */
-	columns: any[],
-	columnTemplate?: (item: T) => ReactNode,
-	sortColumnChange?: (column: any) => void,
-	sortColumn?: any,
-	sortDirectionChange?: (direction: SortDirection) => void,
-	sortDirection?: SortDirection,
-	selectMode?: SelectMode,
-	/* Item Settings */
-	list?: T[],
-	rowTemplate?: (item: T) => ReactNode,
-	itemsID?: (item: T) => string | number,
-	subContentTemplate?: (item: T) => ReactNode,
-	selectedItems?: T[],
-	onSelectedItemsChange?: (items: T[]) => void,
-	renderEmptyState?: () => ReactElement,
-	/* Fetching & Loading States */
-	infiniteScroll?: boolean,
-	loadMore?: (page: number) => Promise<void>,
-	page?: number,
-	pageSize?: number,
-	totalItems?: number,
-	loading?: boolean,
-}
+import { ObjectUtils } from "@lotexiu/typescript/natives/object/generic/utils";
+import { TColumn, TColumnTemplate, TListProps } from "./types";
 
 export const List = ReactWrapper(
-	class List<T> extends ReactWrapper.Client<ListProps<T>> {
+	class List<
+		T,
+		C extends TColumn<TCT>[],
+		TCT extends TColumnTemplate<C>
+	> extends ReactWrapper.Client<TListProps<T,C,TCT>> {
+
+		setupHooks(): void {
+			// type T = TMap
+
+		}
+
 		render(): ReactNode {
-			const {columns, columnTemplate, ...props } = this.props;
+			const {columns, columnTemplate, rowTemplate, ...props } = this.props as any as TListProps<any,TColumn<null>[]>;
 
 			return (
 				<Table {...props}>
@@ -47,7 +29,7 @@ export const List = ReactWrapper(
 								<TableHead key={column.id}>
 									{
 										columnTemplate?.(column) ||
-										<div key={column.id}>{column.header}</div>
+										<div key={column.id}>{column.name}</div>
 									}
 								</TableHead>
 							</TableRow>
@@ -59,9 +41,9 @@ export const List = ReactWrapper(
 								{columns.map((column) => (
 									<TableCell key={column.id}>
 										{
-											columnTemplate?.(item) ||
+											rowTemplate?.(column, item) ||
 											<div key={column.id}>
-												{item[column.name]}
+												{}
 											</div>
 										}
 									</TableCell>
@@ -73,4 +55,4 @@ export const List = ReactWrapper(
 			);
 		}
 	}
-)
+);

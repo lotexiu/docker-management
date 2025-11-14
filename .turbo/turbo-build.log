@@ -1,23 +1,0 @@
-
-
-> docker-management@0.1.0 build /home/sg/repositories/aleph-typescript/apps/docker-management
-> next build
-
-   [1m[38;2;173;127;168m▲ Next.js 16.0.1[39m[22m (Turbopack)
-
- [37m[1m [22m[39m Creating an optimized production build ...
- [32m[1m✓[22m[39m Compiled successfully in 6.5s
-[?25l [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m.[39m[2K[1G [37m[1m [22m[39m Running TypeScript  [36m..[39m[31mFailed to compile.
-[39m
-[36m./src/app/person/list/page.tsx[39m:[33m13[39m:[33m7[39m
-[31m[1mType error[22m[39m: Property 'children' is missing in type '{}' but required in type 'ListProps'.
-
-[0m [90m 11 |[39m 			[36mreturn[39m (
- [90m 12 |[39m 				[33m<[39m[33m>[39m
-[31m[1m>[22m[39m[90m 13 |[39m 					[33m<[39m[33mList[39m[33m>[39m
- [90m    |[39m 					 [31m[1m^[22m[39m
- [90m 14 |[39m 					[33m<[39m[33m/[39m[33mList[39m[33m>[39m
- [90m 15 |[39m 				[33m<[39m[33m/[39m[33m>[39m
- [90m 16 |[39m 			)[0m
-[2K[1G [37m[1m [22m[39m Running TypeScript  [36m...[39m[2K[1G[?25hNext.js build worker exited with code: 1 and signal: null
-[?25l [36m.[39m [?25h[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 1.[39m
