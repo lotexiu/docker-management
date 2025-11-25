@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { ReactWrapper } from "../../../../../../packages/react/dist/components/implementations";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -9,6 +8,7 @@ import { Lock, Mail } from "lucide-react";
 import { AuthFormBase, FormFieldConfig } from "./AuthFormBase";
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { ReactWrapper } from "@lotexiu/react";
 
 // Schema de validação com Zod
 const signInSchema = z.object({

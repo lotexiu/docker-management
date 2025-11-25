@@ -1,6 +1,6 @@
-import { ReactWrapper } from "../../../../../packages/react/dist/components/implementations";
 import { ReactNode } from "react";
 import { LoginContainer } from "./client/LoginContainer";
+import { ReactWrapper } from "@lotexiu/react";
 
 const LoginPage = ReactWrapper(
 	class LoginPage extends ReactWrapper.Server {

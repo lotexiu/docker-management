@@ -1,9 +1,9 @@
 "use client";
 
-import { ReactWrapper } from "../../../../../../packages/react/dist/components/implementations";
 import { ReactNode } from "react";
 import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
+import { ReactWrapper } from "@lotexiu/react";
 
 export const LoginContainer = ReactWrapper(
 	class LoginContainer extends ReactWrapper.Client {
